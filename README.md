@@ -18,3 +18,11 @@ So for some reason they named threads web workers in the browser so I have named
 ## Tasks
 
 + [ ] Get basic tests running with client code running webworkers.
+
+
+## Status
+
+6/09/2018
+
+Got tests running...got requirejs laoding in test not in regular browser...
+upon configure of requirejs...we cannot request the job maybe we need base/

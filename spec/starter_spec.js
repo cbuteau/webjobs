@@ -7,14 +7,39 @@ define('spec/starter_spec', ['src/JobStarter', 'src/BasicResolver'], function(Jo
       });
     });
 
-    it ('this should fail', function() {
-      expect(true).toBe(false);
+    xit ('Super short timeout', function(done) {
+      var prom = JobStarter.start({
+        jobPath: 'src/SimpleJob.js',
+        timeout: 200
+      });
+
+      prom.then(function(results) {
+        console.log(results);
+      }).catch(function(err) {
+        expect(err.message).toBe('Job Timeout');
+        console.error(err);
+        done();
+      });
     });
 
-    it ('hopefully call a method', function() {
+    it ('Start a Simple Job', function(done) {
       //var starter = new JobStarter();
-      JobStarter.start({
-        jobPath: 'src/SimpleJob.js'
+      var prom = JobStarter.start({
+        jobPath: 'src/SimpleJob.js',
+        jobparams: {
+          param1: 10,
+          param2: 20
+        }
+      });
+
+      prom.then(function(results) {
+        console.log(results);
+        done();
+      }).catch(function(err) {
+        console.error(err);
+        // this path should not be taken.
+        expect(err).not.toBe(null);
+        done();
       });
     });
 
