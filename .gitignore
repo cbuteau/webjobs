@@ -1,0 +1,8 @@
+#Node crap
+node_modules/
+
+# Coverage by Istanbul
+coverage/
+
+# Instrument by istanbul
+instrument/
