@@ -1,4 +1,7 @@
 define('spec/starter_spec', ['src/JobStarter', 'src/BasicResolver'], function(JobStarter, BasicResolver) {
+
+  jasmine.DEFAULT_TIMEOUT_INTERVAL = jasmine.DEFAULT_TIMEOUT_INTERVAL * 10;
+
   describe('First test', function() {
 
     beforeAll(function() {
@@ -7,7 +10,7 @@ define('spec/starter_spec', ['src/JobStarter', 'src/BasicResolver'], function(Jo
       });
     });
 
-    xit ('Super short timeout', function(done) {
+    it ('Super short timeout', function(done) {
       var prom = JobStarter.start({
         jobPath: 'src/SimpleJob.js',
         timeout: 200
@@ -34,13 +37,35 @@ define('spec/starter_spec', ['src/JobStarter', 'src/BasicResolver'], function(Jo
 
       prom.then(function(results) {
         console.log(results);
+        expect(results).toBe(30);
         done();
       }).catch(function(err) {
         console.error(err);
         // this path should not be taken.
         expect(err).not.toBe(null);
-        done();
+        //done();
       });
+    });
+
+    it ('RecursiveJob', function(done) {
+      var prom = JobStarter.start({
+        jobPath: 'src/RecursiveJob.js',
+        jobparams: {
+          n: 5
+        }
+      });
+
+      prom.then(function(results) {
+        console.log(results);
+        expect(results).toBe(120);
+        done();
+      }).catch(function(err) {
+        console.error(err);
+        // this path should not be taken.
+        expect(err).not.toBe(null);
+        //done();
+      });
+
     });
 
   });

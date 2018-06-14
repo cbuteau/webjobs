@@ -1,20 +1,26 @@
 'use strict';
 define('src/BasicResolver', [], function() {
 
-  var REGEX_DOUBLE_SLASH = /[\w]\/\//;
-
   function BasicResolver(options) {
     this.options = options;
   }
 
   BasicResolver.prototype = {
+    baseUrl: function() {
+      if (this.isInJasmine()) {
+        return location.origin + '/base';
+      }
+      return location.origin;
+    },
+    isInJasmine: function() {
+      return typeof expect === 'function';
+    },
     resolve: function(partialPath) {
         var current = location.origin;
         return current + (partialPath.indexOf('/') === 0 ? partialPath : '/' + partialPath);
-        //return current + '/' + partialPath;
     },
     getrequirePath: function() {
-      if (typeof expect === 'function') {
+      if (this.isInJasmine()) {
         return this.resolve(window.__karma__.requirePath);
       } else {
         return this.options.requirePath;

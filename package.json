@@ -4,7 +4,8 @@
   "description": "A wrapper for a script that runs in a webworker wrapped in a promise.",
   "main": "index.js",
   "scripts": {
-    "test": "karma start ./config/karma.conf.js"
+    "test": "karma start",
+    "test.ci": "karma start --singlerun"
   },
   "author": "Christopher W Buteau <cbuteau@gmail.com>",
   "license": "MIT",

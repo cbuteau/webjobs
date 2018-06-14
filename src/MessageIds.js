@@ -1,6 +1,8 @@
+/*jslint node: true */
+/*global define */
 'use strict';
-define('src/MessageIds', [], function() {
-  const MessageIds = {
+define('src/MessageIds', [], function () {
+  var MessageIds = {
     BASEINIT: 0,
     BASEINIT_COMPLETE: 1,
     BASEINIT_ERROR: 2,
@@ -12,5 +14,4 @@ define('src/MessageIds', [], function() {
   Object.freeze(MessageIds);
 
   return MessageIds;
-
 });

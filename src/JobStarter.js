@@ -25,7 +25,9 @@ define('src/JobStarter', ['src/IdGenerator', 'src/MessageIds'], function(IdGener
       // TODO include the path to require js so the thread can load it...
       worker.postMessage({
         msg: MessageIds.BASEINIT,
+        baseUrl: this.options.resolver.baseUrl(),
         jobPath: options.jobPath,
+        jobImport: this.options.resolver.resolve('base/' + options.jobPath),
         workerId: workerId,
         requirePath: this.options.resolver.getrequirePath()
       });
@@ -66,6 +68,7 @@ define('src/JobStarter', ['src/IdGenerator', 'src/MessageIds'], function(IdGener
             var worker = this.workers[data.workerId];
             worker.postMessage({
               msg: MessageIds.DISPATCH,
+              workerId: data.workerId,
               params: worker.jobparams
             });
           } else {
