@@ -1,6 +1,6 @@
 'use strict';
 
-
+// <editor-fold>
 // In the thread we will load the job script and requirejs...
 function Helper() {
 }
@@ -47,6 +47,7 @@ Helper.prototype = {
 };
 
 self.helper = new Helper();
+// </editor-fold>
 
 onmessage = function(e) {
   console.log('Message received from main script');
@@ -69,32 +70,54 @@ onmessage = function(e) {
           // TODO load test infrastructure...
         }
 
+        // requirejs.config({
+        //   baseUrl: '/base',
+        //   waitSeconds: 20,
+        //   callback: function() {
+        //     require([data.jobImport], function(JobDispatcher) {
+        //       self.dispatcher = new JobDispatcher();
+        //       postMessage({
+        //         msg: 1,
+        //         workerId: data.workerId,
+        //         comment: 'Initialized dispatcher'
+        //       });
+        //     }, function(requireerr) {
+        //       console.error(requireerr);
+        //       postMessage({
+        //         msg: 2,
+        //         workerId: data.workerId,
+        //         comment: 'Require of Job failed',
+        //         error: self.helper.convertError(requireerr)
+        //       });
+        //     });
+        //   }
+        // });
+
+
         requirejs.config({
           baseUrl: '/base',
           waitSeconds: 20,
-          callback: function() {
-            //importScripts(data.jobImport);
-
-            //self.dispatcher = new SimpleJob();
-
-            require([data.jobImport], function(JobDispatcher) {
-              self.dispatcher = new JobDispatcher();
-              postMessage({
-                msg: 1,
-                workerId: data.workerId,
-                comment: 'Initialized dispatcher'
-              });
-            }, function(requireerr) {
-              console.error(requireerr);
-              postMessage({
-                msg: 2,
-                workerId: data.workerId,
-                comment: 'Require of Job failed',
-                error: self.helper.convertError(requireerr)
-              });
-            });
-          }
         });
+
+        var resolved = requirejs.toUrl(data.jobPath);
+        require([resolved], function(JobDispatcher) {
+          self.dispatcher = new JobDispatcher();
+          postMessage({
+            msg: 1,
+            workerId: data.workerId,
+            comment: 'Initialized dispatcher'
+          });
+        }, function(requireerr) {
+          console.error(requireerr);
+          postMessage({
+            msg: 2,
+            workerId: data.workerId,
+            comment: 'Require of Job failed',
+            error: self.helper.convertError(requireerr)
+          });
+        });
+
+
         //console.log(requirejs);
         //importScripts('http://localhost:9876/base/node_modules/requirejs/require.js');
       } catch (err) {

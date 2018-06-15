@@ -3,11 +3,11 @@ define('src/JobStarter', ['src/IdGenerator', 'src/MessageIds'], function(IdGener
 
   var instance = null;
 
-  function JobStarter() {
+  function TroubleMaker() {
     this.workers = {};
   }
 
-  JobStarter.prototype = {
+  TroubleMaker.prototype = {
     setup: function(options) {
       // setup resolver...
       this.options = options;
@@ -22,6 +22,7 @@ define('src/JobStarter', ['src/IdGenerator', 'src/MessageIds'], function(IdGener
       var worker = new Worker(basePath);
       var workerId = IdGenerator.generate();
       this.workers[workerId] = worker;
+      worker.workerId = workerId;
       // TODO include the path to require js so the thread can load it...
       worker.postMessage({
         msg: MessageIds.BASEINIT,
@@ -50,14 +51,24 @@ define('src/JobStarter', ['src/IdGenerator', 'src/MessageIds'], function(IdGener
         worker.reject = reject;
       });
 
+      var that = this;
+
+      var finish = function() {
+        worker.isDone = true;
+        worker.doneTime = Date.now();
+        that._cleanupWorkers();
+      }
+
       promise.catch(function(err) {
         worker.isFaulted = true;
+        finish();
+      });
+
+      promise.then(function(result) {
+        finish();
       });
 
       return promise;
-    },
-    _resolve: function(path) {
-      return this.options.resolver.resolve(path);
     },
     _workerOnMessage: function(e) {
       var data = e.data;
@@ -98,11 +109,39 @@ define('src/JobStarter', ['src/IdGenerator', 'src/MessageIds'], function(IdGener
           console.error('Response did not have valid msg code "' + data.msg + '')
           break;
       }
+    },
+
+    // <editor-fold> Private
+
+    _resolve: function(path) {
+      return this.options.resolver.resolve(path);
+    },
+
+    _cleanupWorkers: function() {
+      var flat = [];
+      for (var prop in this.workers) {
+        var worker = this.workers[prop];
+        if (worker.isDone) {
+          flat.push(worker);
+        }
+      }
+      if (flat.length) {
+        flat.sort(function(verOne, verTwo) {
+          return verOne.doneTime - verTwo.doneTime;
+        });
+        var bottom = flat[flat.length-1];
+        // Until we learn to pool and reuse these...just let them go.
+        bottom.terminate();
+        delete this.workers[bottom.workerId];
+      }
     }
+
+    // </editor-fold>
+
   }
 
   if (!instance) {
-    instance = new JobStarter();
+    instance = new TroubleMaker();
   }
   return instance;
 });

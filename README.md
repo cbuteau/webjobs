@@ -14,6 +14,29 @@ The idea would be to figure out this mechanism and how to run tests in it as wel
 
 So for some reason they named threads web workers in the browser so I have named this package webjobs.
 
+So the idea is a library where you learn to kick small jobs to threading and then they notify you when it is done.
+
+## Samples
+
+```javascript
+define('SomeProcessingModule',
+  ['src/JobStarter'],
+  function(JobStarter) {
+    var jobPromise = JobStarter.start({
+      jobPath: 'src/Addition.js',
+      jobparams: {
+        param1: 10,
+        param2: 20
+      }    
+    });
+
+    jobPromise.then(function(results) {
+      console.log(results);
+    }).catch(function(err) {
+      console.error(err);
+    });
+  });
+```
 
 ## Tasks
 

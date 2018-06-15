@@ -1,6 +1,9 @@
 'use strict';
 
 define('spec/complicated_spec', ['src/JobStarter', 'src/BasicResolver'], function(JobStarter, BasicResolver) {
+
+  jasmine.DEFAULT_TIMEOUT_INTERVAL = jasmine.DEFAULT_TIMEOUT_INTERVAL * 10;
+
   describe('More Complicated Tests', function() {
     beforeAll(function() {
       JobStarter.setup({
