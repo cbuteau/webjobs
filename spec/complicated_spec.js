@@ -1,12 +1,12 @@
 'use strict';
 
-define('spec/complicated_spec', ['src/JobStarter', 'src/BasicResolver'], function(JobStarter, BasicResolver) {
+define('spec/complicated_spec', ['src/TroubleMaker', 'src/BasicResolver'], function(TroubleMaker, BasicResolver) {
 
   jasmine.DEFAULT_TIMEOUT_INTERVAL = jasmine.DEFAULT_TIMEOUT_INTERVAL * 10;
 
   describe('More Complicated Tests', function() {
     beforeAll(function() {
-      JobStarter.setup({
+      TroubleMaker.setup({
         resolver: new BasicResolver()
       });
     });
@@ -15,7 +15,7 @@ define('spec/complicated_spec', ['src/JobStarter', 'src/BasicResolver'], functio
 
 
     it ('RecursiveJob', function(done) {
-      var prom = JobStarter.start({
+      var prom = TroubleMaker.start({
         jobPath: 'src/TimeZoneJob.js',
         jobparams: {
           url: 'http://ip.jsontest.com/',

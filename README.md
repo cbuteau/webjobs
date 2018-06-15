@@ -20,9 +20,9 @@ So the idea is a library where you learn to kick small jobs to threading and the
 
 ```javascript
 define('SomeProcessingModule',
-  ['src/JobStarter'],
-  function(JobStarter) {
-    var jobPromise = JobStarter.start({
+  ['src/TroubleMaker'],
+  function(TroubleMaker) {
+    var jobPromise = TroubleMaker.start({
       jobPath: 'src/Addition.js',
       jobparams: {
         param1: 10,
@@ -37,6 +37,13 @@ define('SomeProcessingModule',
     });
   });
 ```
+
+## TroubleMaker
+
+At some point some night... I decided JobStarter and JobManager were too lame.
+and I said who is going to start and thought TroubleMaker and the name stuck in my head.
+
+the coolest thing is git made it easy to do this.
 
 ## Tasks
 

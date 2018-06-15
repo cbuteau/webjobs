@@ -1,17 +1,17 @@
-define('spec/starter_spec', ['src/JobStarter', 'src/BasicResolver'], function(JobStarter, BasicResolver) {
+define('spec/starter_spec', ['src/TroubleMaker', 'src/BasicResolver'], function(TroubleMaker, BasicResolver) {
 
   jasmine.DEFAULT_TIMEOUT_INTERVAL = jasmine.DEFAULT_TIMEOUT_INTERVAL * 10;
 
   describe('First test', function() {
 
     beforeAll(function() {
-      JobStarter.setup({
+      TroubleMaker.setup({
         resolver: new BasicResolver()
       });
     });
 
     it ('Super short timeout', function(done) {
-      var prom = JobStarter.start({
+      var prom = TroubleMaker.start({
         jobPath: 'src/SimpleJob.js',
         timeout: 200
       });
@@ -27,7 +27,7 @@ define('spec/starter_spec', ['src/JobStarter', 'src/BasicResolver'], function(Jo
 
     it ('Start a Simple Job', function(done) {
       //var starter = new JobStarter();
-      var prom = JobStarter.start({
+      var prom = TroubleMaker.start({
         jobPath: 'src/SimpleJob.js',
         jobparams: {
           param1: 10,
@@ -48,7 +48,7 @@ define('spec/starter_spec', ['src/JobStarter', 'src/BasicResolver'], function(Jo
     });
 
     it ('RecursiveJob', function(done) {
-      var prom = JobStarter.start({
+      var prom = TroubleMaker.start({
         jobPath: 'src/RecursiveJob.js',
         jobparams: {
           n: 5

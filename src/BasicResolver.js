@@ -16,12 +16,12 @@ define('src/BasicResolver', [], function() {
       return typeof expect === 'function';
     },
     resolve: function(partialPath) {
-        var current = location.origin;
+        var current = this.baseUrl();
         return current + (partialPath.indexOf('/') === 0 ? partialPath : '/' + partialPath);
     },
     getrequirePath: function() {
       if (this.isInJasmine()) {
-        return this.resolve(window.__karma__.requirePath);
+        return window.__karma__.requirePath;
       } else {
         return this.options.requirePath;
       }

@@ -1,5 +1,5 @@
 'use strict';
-define('src/JobStarter', ['src/IdGenerator', 'src/MessageIds'], function(IdGenerator, MessageIds) {
+define('src/TroubleMaker', ['src/IdGenerator', 'src/MessageIds'], function(IdGenerator, MessageIds) {
 
   var instance = null;
 
@@ -13,27 +13,29 @@ define('src/JobStarter', ['src/IdGenerator', 'src/MessageIds'], function(IdGener
       this.options = options;
       // bind it once..
       this._boundOnMessage = this._workerOnMessage.bind(this);
+
+      this.requirejsBaseUrl = require.toUrl('');
     },
     start: function(options) {
       // resolve actual path to script...
       var path = this._resolve(options.jobPath);
-      var basePath = this._resolve('base/src/BaseThread.js');
+      var basePath = this._resolve('src/BaseThread.js');
 
-      var worker = new Worker(basePath);
       var workerId = IdGenerator.generate();
-      this.workers[workerId] = worker;
+      var worker = this.workers[workerId] = new Worker(basePath);
       worker.workerId = workerId;
-      // TODO include the path to require js so the thread can load it...
+      worker.onmessage = this._boundOnMessage;
+
+      //this.workers[workerId] = worker;
       worker.postMessage({
         msg: MessageIds.BASEINIT,
+        requirejs: this.requirejsBaseUrl,
         baseUrl: this.options.resolver.baseUrl(),
         jobPath: options.jobPath,
-        jobImport: this.options.resolver.resolve('base/' + options.jobPath),
         workerId: workerId,
         requirePath: this.options.resolver.getrequirePath()
       });
 
-      worker.onmessage = this._boundOnMessage;
 
       worker.jobparams = options.jobparams;
 

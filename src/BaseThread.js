@@ -70,32 +70,8 @@ onmessage = function(e) {
           // TODO load test infrastructure...
         }
 
-        // requirejs.config({
-        //   baseUrl: '/base',
-        //   waitSeconds: 20,
-        //   callback: function() {
-        //     require([data.jobImport], function(JobDispatcher) {
-        //       self.dispatcher = new JobDispatcher();
-        //       postMessage({
-        //         msg: 1,
-        //         workerId: data.workerId,
-        //         comment: 'Initialized dispatcher'
-        //       });
-        //     }, function(requireerr) {
-        //       console.error(requireerr);
-        //       postMessage({
-        //         msg: 2,
-        //         workerId: data.workerId,
-        //         comment: 'Require of Job failed',
-        //         error: self.helper.convertError(requireerr)
-        //       });
-        //     });
-        //   }
-        // });
-
-
         requirejs.config({
-          baseUrl: '/base',
+          baseUrl: data.requirejs,
           waitSeconds: 20,
         });
 
