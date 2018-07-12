@@ -18,3 +18,13 @@ supposedly anyone can use these endpoints for testing.
 [JSON test](http://www.jsontest.com/)
 
 WE keep inserting base to the url to the script is correct...find a not so obvious method to reolve this better...maybe requirejs.toUrl()
+
+
+07/06/2018
+
+need test site.
+need to debug and understand the url problem in a real site and then get it to work in the tests.
+
+07/10/2018
+
+Did some coding on the workerproxy...need more code before integration...

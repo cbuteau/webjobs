@@ -14,7 +14,7 @@ define('spec/complicated_spec', ['src/TroubleMaker', 'src/BasicResolver'], funct
 
 
 
-    it ('RecursiveJob', function(done) {
+    xit ('RecursiveJob', function(done) {
       var prom = TroubleMaker.start({
         jobPath: 'src/TimeZoneJob.js',
         jobparams: {

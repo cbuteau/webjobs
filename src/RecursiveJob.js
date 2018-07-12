@@ -14,7 +14,7 @@ define([], function() {
     dispatch: function(workerId, params) {
       var fact = factorial(params.n);
       postMessage({
-        msg: 4,
+        msg: 5,
         workerId: workerId,
         payload: fact
       });

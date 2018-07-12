@@ -14,9 +14,13 @@
     "requirejs": "2.3.5"
   },
   "devDependencies": {
+    "jasmine": "3.1.0",
+    "karma": "2.0.4",
+    "karma-chrome-launcher": "2.2.0",
+    "karma-jasmine": "1.1.2",
     "karma-jasmine-html-reporter": "1.1.0",
     "karma-phantomjs-launcher": "1.0.4",
-    "karma-spec-reporter": "0.0.32",
-    "phantomjs": "2.1.7"
+    "karma-requirejs": "1.1.0",
+    "karma-spec-reporter": "0.0.32"
   }
 }

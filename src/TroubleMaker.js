@@ -1,5 +1,5 @@
 'use strict';
-define('src/TroubleMaker', ['src/IdGenerator', 'src/MessageIds'], function(IdGenerator, MessageIds) {
+define('src/TroubleMaker', ['src/IdGenerator', 'src/MessageIds', 'src/WorkerStates', 'src/ThePool', 'src/WorkerProxy'], function(IdGenerator, MessageIds, WorkerStates, ThePool, WorkerProxy) {
 
   var instance = null;
 
@@ -17,27 +17,60 @@ define('src/TroubleMaker', ['src/IdGenerator', 'src/MessageIds'], function(IdGen
       this.requirejsBaseUrl = require.toUrl('');
     },
     start: function(options) {
+      var path = this._resolve(options.jobPath);
+      var basePath = this._resolve('src/BaseThread.js');
+
+      var proxy = new WorkerProxy({
+        jobparams: options.jobparams,
+        requirejs: this.requirejsBaseUrl,
+        requirePath: this.options.resolver.getrequirePath(),
+        jobPath: options.jobPath,
+        basePath: basePath,
+        timeout: options.timeout
+      });
+
+      this.workers[proxy.settings.workerId] = proxy;
+
+      return proxy.getPromise();
+    },
+    start_old: function(options) {
       // resolve actual path to script...
       var path = this._resolve(options.jobPath);
       var basePath = this._resolve('src/BaseThread.js');
 
+
+
       var workerId = IdGenerator.generate();
       var worker = this.workers[workerId] = new Worker(basePath);
       worker.workerId = workerId;
+      worker.startTime = Date.now();
+      worker.state = WorkerStates.STARTED;
       worker.onmessage = this._boundOnMessage;
 
-      //this.workers[workerId] = worker;
-      worker.postMessage({
+      worker.jobparams = options.jobparams;
+      worker.messages = [];
+      worker.jobparams = options.jobparams;
+
+      worker.messages.push({
         msg: MessageIds.BASEINIT,
         requirejs: this.requirejsBaseUrl,
         baseUrl: this.options.resolver.baseUrl(),
         jobPath: options.jobPath,
+        fullJobPath: path,
         workerId: workerId,
         requirePath: this.options.resolver.getrequirePath()
       });
 
+      // worker.postMessage({
+      //   msg: MessageIds.BASEINIT,
+      //   requirejs: this.requirejsBaseUrl,
+      //   baseUrl: this.options.resolver.baseUrl(),
+      //   jobPath: options.jobPath,
+      //   fullJobPath: path,
+      //   workerId: workerId,
+      //   requirePath: this.options.resolver.getrequirePath()
+      // });
 
-      worker.jobparams = options.jobparams;
 
       if (options.timeout) {
         setTimeout(function() {
@@ -75,10 +108,24 @@ define('src/TroubleMaker', ['src/IdGenerator', 'src/MessageIds'], function(IdGen
     _workerOnMessage: function(e) {
       var data = e.data;
       switch (data.msg) {
+        case MessageIds.SCRIPTLOADED:
+          var flat = this._flattenWorkers();
+          flat.sort(function(wrkOne, wrkTwo) {
+            return wrkOne.startTime - wrkTwo.startTime;
+          });
+          var worker = flat[0];
+          worker.state = WorkerStates.LOADED;
+          var msg = worker.messages.pop();
+          while (msg) {
+            worker.postMessage(msg);
+            msg = worker.messages.pop();
+          }
+          break;
         case MessageIds.BASEINIT_COMPLETE:
           // send JOB dispatch...
           if (data.workerId) {
             var worker = this.workers[data.workerId];
+            worker.state = WorkerStates.INITIALIZED;
             worker.postMessage({
               msg: MessageIds.DISPATCH,
               workerId: data.workerId,
@@ -91,7 +138,9 @@ define('src/TroubleMaker', ['src/IdGenerator', 'src/MessageIds'], function(IdGen
         case MessageIds.BASEINIT_ERROR:
           if (data.workerId) {
             var worker = this.workers[data.workerId];
+            worker.state = WorkerStates.COMPLETED;
             worker.reject(data.error);
+
           } else {
             console.error('No workerId in message');
           }
@@ -119,7 +168,18 @@ define('src/TroubleMaker', ['src/IdGenerator', 'src/MessageIds'], function(IdGen
       return this.options.resolver.resolve(path);
     },
 
+    _flattenWorkers: function() {
+      var flat = [];
+      for (var prop in this.workers) {
+        var worker = this.workers[prop];
+        flat.push(worker);
+      }
+      return flat;
+    },
+
     _cleanupWorkers: function() {
+      // disable until we can debug threads.
+      return;
       var flat = [];
       for (var prop in this.workers) {
         var worker = this.workers[prop];

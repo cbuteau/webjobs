@@ -10,7 +10,7 @@ define('spec/starter_spec', ['src/TroubleMaker', 'src/BasicResolver'], function(
       });
     });
 
-    it ('Super short timeout', function(done) {
+    xit ('Super short timeout', function(done) {
       var prom = TroubleMaker.start({
         jobPath: 'src/SimpleJob.js',
         timeout: 200
@@ -47,7 +47,7 @@ define('spec/starter_spec', ['src/TroubleMaker', 'src/BasicResolver'], function(
       });
     });
 
-    it ('RecursiveJob', function(done) {
+    xit ('RecursiveJob', function(done) {
       var prom = TroubleMaker.start({
         jobPath: 'src/RecursiveJob.js',
         jobparams: {
@@ -66,6 +66,42 @@ define('spec/starter_spec', ['src/TroubleMaker', 'src/BasicResolver'], function(
         //done();
       });
 
+    });
+
+    xit ('Multi-Start', function(done) {
+      var promises = [];
+      var prom1 = TroubleMaker.start({
+        jobPath: 'src/SimpleJob.js',
+        jobparams: {
+          param1: 10,
+          param2: 20
+        }
+      });
+      promises.push(prom1);
+
+      var prom2 = TroubleMaker.start({
+        jobPath: 'src/SimpleJob.js',
+        jobparams: {
+          param1: 10,
+          param2: 20
+        }
+      });
+      promises.push(prom2);
+
+      var prom3 = TroubleMaker.start({
+        jobPath: 'src/SimpleJob.js',
+        jobparams: {
+          param1: 10,
+          param2: 20
+        }
+      });
+      promises.push(prom3);
+
+      Promise.all(promises).then(function() {
+        done();
+      }).catch(function() {
+        done();
+      })
     });
 
   });

@@ -5,6 +5,7 @@ define([], function() {
 
     function transferComplete(evt) {
       console.log("The transfer is complete.");
+      onComplete(JSON.parse(evt.currentTarget.responseText);
     }
 
     function transferFailed(evt) {
@@ -21,6 +22,7 @@ define([], function() {
 
 
     xhr.open(verb, url);
+    xhr.send();
   }
 
   function TimeZoneJob() {}

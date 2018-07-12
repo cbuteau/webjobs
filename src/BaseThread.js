@@ -57,7 +57,7 @@ onmessage = function(e) {
   console.log('msg:' + data.msg + ' translated:' + self.helper.translateMsg(data.msg));
 
   switch (data.msg) {
-    case 0:
+    case 1:
       console.log('INIT');
       // LOad Job Script into thread using import scripts.
 
@@ -79,14 +79,14 @@ onmessage = function(e) {
         require([resolved], function(JobDispatcher) {
           self.dispatcher = new JobDispatcher();
           postMessage({
-            msg: 1,
+            msg: 2,
             workerId: data.workerId,
             comment: 'Initialized dispatcher'
           });
         }, function(requireerr) {
           console.error(requireerr);
           postMessage({
-            msg: 2,
+            msg: 3,
             workerId: data.workerId,
             comment: 'Require of Job failed',
             error: self.helper.convertError(requireerr)
@@ -114,7 +114,7 @@ onmessage = function(e) {
       // });
 
       break;
-    case 3:
+    case 4:
       // Diapatch work data to job...
       self.dispatcher.dispatch(data.workerId, data.params);
       break;
@@ -127,3 +127,8 @@ onmessage = function(e) {
   // console.log('Posting message back to main script');
   // postMessage(workerResult);
 }
+
+postMessage({
+  msg: 0,
+  workerId: 'unknown'
+});

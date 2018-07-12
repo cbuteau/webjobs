@@ -3,12 +3,13 @@
 'use strict';
 define('src/MessageIds', [], function () {
   var MessageIds = {
-    BASEINIT: 0,
-    BASEINIT_COMPLETE: 1,
-    BASEINIT_ERROR: 2,
-    DISPATCH: 3,
-    DISPATCH_COMPLETE: 4,
-    DISPATCH_ERROR: 5
+    SCRIPTLOADED: 0,
+    BASEINIT: 1,
+    BASEINIT_COMPLETE: 2,
+    BASEINIT_ERROR: 3,
+    DISPATCH: 4,
+    DISPATCH_COMPLETE: 5,
+    DISPATCH_ERROR: 6
   };
 
   Object.freeze(MessageIds);

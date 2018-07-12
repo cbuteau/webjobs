@@ -15,7 +15,7 @@ define([] , function() {
     dispatch: function(workerId, parameters) {
       var result = parameters.param1 + parameters.param2;
       postMessage({
-        msg: 4,
+        msg: 5,
         workerId: workerId,
         payload: result
       });
