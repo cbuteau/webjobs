@@ -22,7 +22,7 @@ define('src/TroubleMaker', ['src/IdGenerator', 'src/MessageIds', 'src/WorkerStat
 
       var proxy = new WorkerProxy({
         jobparams: options.jobparams,
-        requirejs: this.requirejsBaseUrl,
+        baseUrl: this.requirejsBaseUrl,
         requirePath: this.options.resolver.getrequirePath(),
         jobPath: options.jobPath,
         basePath: basePath,

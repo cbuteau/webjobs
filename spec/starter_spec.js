@@ -10,10 +10,10 @@ define('spec/starter_spec', ['src/TroubleMaker', 'src/BasicResolver'], function(
       });
     });
 
-    xit ('Super short timeout', function(done) {
+    it ('Super short timeout', function(done) {
       var prom = TroubleMaker.start({
-        jobPath: 'src/SimpleJob.js',
-        timeout: 200
+        jobPath: 'src/SimpleJob',
+        timeout: 20
       });
 
       prom.then(function(results) {
@@ -25,10 +25,10 @@ define('spec/starter_spec', ['src/TroubleMaker', 'src/BasicResolver'], function(
       });
     });
 
-    it ('Start a Simple Job', function(done) {
+    xit ('Start a Simple Job', function(done) {
       //var starter = new JobStarter();
       var prom = TroubleMaker.start({
-        jobPath: 'src/SimpleJob.js',
+        jobPath: 'src/SimpleJob',
         jobparams: {
           param1: 10,
           param2: 20

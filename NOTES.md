@@ -28,3 +28,9 @@ need to debug and understand the url problem in a real site and then get it to w
 07/10/2018
 
 Did some coding on the workerproxy...need more code before integration...
+
+07/12/2018
+
+Stepping through require code in the broswer...require/define goes through this context.nameToUrl() mapper before being loaded so the name is seperate from url...we need that in Worker Context...
+
+Think we finally figured out the requirejs baseUrl problem...committing progress

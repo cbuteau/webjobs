@@ -1,5 +1,5 @@
 'use strict';
-define([] , function() {
+define('src/SimpleJob', [] , function() {
 
   function SimpleJob() {}
 

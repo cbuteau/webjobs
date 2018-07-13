@@ -70,6 +70,28 @@ onmessage = function(e) {
           // TODO load test infrastructure...
         }
 
+        require({
+          baseUrl: data.baseUrl,
+          waitSeconds: 20
+        }, [data.jobPath], function(JobDispatcher) {
+          self.dispatcher = new JobDispatcher();
+          postMessage({
+            msg: 2,
+            workerId: data.workerId,
+            comment: 'Initialized dispatcher'
+          });
+
+        }, function(requireerr) {
+          postMessage({
+            msg: 3,
+            workerId: data.workerId,
+            comment: 'Require of Job failed',
+            error: self.helper.convertError(requireerr)
+          });
+
+        });
+
+        /*
         requirejs.config({
           baseUrl: data.requirejs,
           waitSeconds: 20,
@@ -92,6 +114,7 @@ onmessage = function(e) {
             error: self.helper.convertError(requireerr)
           });
         });
+        */
 
 
         //console.log(requirejs);
@@ -116,7 +139,14 @@ onmessage = function(e) {
       break;
     case 4:
       // Diapatch work data to job...
-      self.dispatcher.dispatch(data.workerId, data.params);
+      try {
+        self.dispatcher.dispatch(data.workerId, data.params);
+      } catch(err) {
+        postMessage({
+          msg: 6,
+          error: self.helper.convertError(err)
+        });
+      }
       break;
     default:
       console.log('you dropped a message on the floor.');

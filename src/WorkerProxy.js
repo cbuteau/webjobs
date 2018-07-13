@@ -13,7 +13,7 @@ define('src/WorkerProxy', ['src/IdGenerator', 'src/WorkerStates', 'src/MessageId
     this.settings.state = WorkerStates.STARTED;
     this.queue({
       msg: MessageIds.BASEINIT,
-      requirejs: parameters.requirejs,
+      baseUrl: parameters.baseUrl,
       jobPath: parameters.jobPath,
       workerId: this.settings.id,
       requirePath: parameters.requirePath
