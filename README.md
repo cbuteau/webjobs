@@ -23,7 +23,7 @@ define('SomeProcessingModule',
   ['src/TroubleMaker'],
   function(TroubleMaker) {
     var jobPromise = TroubleMaker.start({
-      jobPath: 'src/Addition.js',
+      jobPath: 'src/Addition',
       jobparams: {
         param1: 10,
         param2: 20
@@ -47,7 +47,7 @@ the coolest thing is git made it easy to do this.
 
 ## Tasks
 
-+ [ ] Get basic tests running with client code running webworkers.
++ [x] Get basic tests running with client code running webworkers.
 
 
 ## Status

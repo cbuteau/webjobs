@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "karma start",
-    "test.ci": "karma start --singlerun"
+    "test.ci": "karma start --singleRun"
   },
   "author": "Christopher W Buteau <cbuteau@gmail.com>",
   "license": "MIT",

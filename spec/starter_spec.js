@@ -25,7 +25,7 @@ define('spec/starter_spec', ['src/TroubleMaker', 'src/BasicResolver'], function(
       });
     });
 
-    xit ('Start a Simple Job', function(done) {
+    it ('Start a Simple Job', function(done) {
       //var starter = new JobStarter();
       var prom = TroubleMaker.start({
         jobPath: 'src/SimpleJob',
@@ -47,9 +47,32 @@ define('spec/starter_spec', ['src/TroubleMaker', 'src/BasicResolver'], function(
       });
     });
 
-    xit ('RecursiveJob', function(done) {
+    it ('Simple Job Fail', function(done) {
       var prom = TroubleMaker.start({
-        jobPath: 'src/RecursiveJob.js',
+        jobPath: 'src/SimpleJob',
+        jobparams: {
+          param1: 10,
+          param2: 0,
+          op: '/'
+        }
+      });
+
+      prom.then(function(results) {
+        console.log(results);
+        expect(results).toBe(30);
+        done();
+      }).catch(function(err) {
+        console.error(err);
+        // this path should not be taken.
+        expect(err).not.toBe(null);
+        done();
+      });
+
+    });
+
+    it ('RecursiveJob', function(done) {
+      var prom = TroubleMaker.start({
+        jobPath: 'src/RecursiveJob',
         jobparams: {
           n: 5
         }
@@ -69,6 +92,7 @@ define('spec/starter_spec', ['src/TroubleMaker', 'src/BasicResolver'], function(
     });
 
     xit ('Multi-Start', function(done) {
+      // TODO: Get Pool going for this test to pass.
       var promises = [];
       var prom1 = TroubleMaker.start({
         jobPath: 'src/SimpleJob.js',
@@ -82,7 +106,7 @@ define('spec/starter_spec', ['src/TroubleMaker', 'src/BasicResolver'], function(
       var prom2 = TroubleMaker.start({
         jobPath: 'src/SimpleJob.js',
         jobparams: {
-          param1: 10,
+          param1: 20,
           param2: 20
         }
       });
@@ -91,15 +115,19 @@ define('spec/starter_spec', ['src/TroubleMaker', 'src/BasicResolver'], function(
       var prom3 = TroubleMaker.start({
         jobPath: 'src/SimpleJob.js',
         jobparams: {
-          param1: 10,
+          param1: 30,
           param2: 20
         }
       });
       promises.push(prom3);
 
-      Promise.all(promises).then(function() {
+      Promise.all(promises).then(function(results) {
+        expect(results).toEqual([30, 40, 50]);
         done();
-      }).catch(function() {
+      }).catch(function(err) {
+        // this is what is working...
+        console.error(err);
+        //throw new Error('Not the correct path');
         done();
       })
     });
