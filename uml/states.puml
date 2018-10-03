@@ -1,0 +1,27 @@
+@startuml
+
+
+[*] --> STARTING
+STARTING --> STARTED
+STARTING : Here we instantiate the Worker() object.
+
+STARTED --> LOADED
+STARTED : We get a message back that the basethread script properly loaded.
+LOADED --> INITIALIZED
+
+INITIALIZED : This is where we load requirejs.
+INITIALIZED : TODO Load any loading subsystem.
+
+
+INITIALIZED --> DISPATCH
+
+DISPATCH : This is where the execution
+DISPATCH :  of the sided script occurs.
+
+DISPATCH --> JOB
+JOB --> COMPLETED
+COMPLETED --> [*]
+
+
+
+@enduml
