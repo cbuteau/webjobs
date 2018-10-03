@@ -56,69 +56,19 @@ The main key to managing a thread was devising a protocol to initialize, start, 
 
 Each message is an int because I prefer int compares to string compares for efficiency.
 
-```plantuml
-Main->WebWorker : start
-WebWorker->Main : SCRIPTLOADED
-Main->WebWorker : BASEINIT
-WebWorker->Main : BASEINIT_COMPLETE
-WebWorker->Main : BASEINIT_ERROR
-Main->WebWorker : DISPATCH
-WebWorker->Main : DISPATCH_COMPLETE
-WebWorker->Main : DISPATCH_ERROR
-```
+Sequence
+
+![Sequence](http://www.plantuml.com/plantuml/png/5Son4S8m30NGdYbW0QkdoYgsye-4i-KWVLtM9wbUzvPWTUReZzTksdD5Udzkv15l4Qzd-UpSicN0THfXB3g7Q4kYffnetzb2HWt2vOeay4kOeXntky3Mopy0)
 
 Some enums that matter
 
-```plantuml
-class MessagIds <<enumeration>> {
-  SCRIPTLOADED: 0,
-  BASEINIT: 1,
-  BASEINIT_COMPLETE: 2,
-  BASEINIT_ERROR: 3,
-  DISPATCH: 4,
-  DISPATCH_COMPLETE: 5,
-  DISPATCH_ERROR: 6
-}
+![Enums](http://www.plantuml.com/plantuml/png/5Son4S8m30NGdYbW0QkdoYgsyu-4i-ISz7LUdr2zxct1wamTZzTfVUIEzF4yo2lU8bvN-PmyicN0-pJ2MFfKwIs9chBGlhE5Q0t2vOu4bXhb-fyRRB_z0G00)
 
-class WorkerStates <<enumeration>> {
-  STARTING: 0,
-  STARTED: 1,
-  LOADED: 2,
-  INITIALIZED: 3,
-  DISPATCH: 4,
-  JOB: 5,
-  COMPLETED: 6
-}
-```
 
 And a state machine describing how a thread is managed.
 
-```plantuml
-@startuml
+![State](http://www.plantuml.com/plantuml/png/5Son4S8m30NGdYbW0QkdoYgsye-4i-MSz7LP7rEzxct1wipH7w_JjEUEzFuyo2lU8bxlyZbvPCk0wpJ2M7GEqPP4JRdHlhE5Z1g4oufaZKIKwvzki7tv0m00)
 
-[*] --> STARTING
-STARTING --> STARTED
-STARTING : Here we instantiate the Worker() object.
-
-STARTED --> LOADED
-STARTED : We get a message back that the basethread script properly loaded.
-LOADED --> INITIALIZED
-
-INITIALIZED : This is where we load requirejs.
-INITIALIZED : TODO Load any loading subsystem.
-
-
-INITIALIZED --> DISPATCH
-
-DISPATCH : This is where the execution
-DISPATCH :  of the sided script occurs.
-
-DISPATCH --> JOB
-JOB --> COMPLETED
-COMPLETED --> [*]
-
-@enduml
-```
 
 ## Status
 
