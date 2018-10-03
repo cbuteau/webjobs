@@ -89,3 +89,6 @@ Very difficult problem to solve...
 10/3/2018
 
 Got testsite doing its first job.
+Got different operations working...
+Cleaned up some vulnerabilities.
+Putting Down.

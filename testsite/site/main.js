@@ -19,6 +19,7 @@
 
     var param1 = document.querySelector('#param1');
     var param2 = document.querySelector('#param2');
+    var paramOp = document.querySelector('#paramop');
 
     var resultDom = document.querySelector('#result');
 
@@ -27,7 +28,8 @@
         jobPath: '../jobs/SimpleJob',
         jobparams: {
           param1: parseInt(param1.value),
-          param2: parseInt(param2.value)
+          param2: parseInt(param2.value),
+          op: paramOp.value
         }
       });
 
