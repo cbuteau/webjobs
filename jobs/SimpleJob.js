@@ -1,21 +1,18 @@
 'use strict';
-define('src/SimpleJob', ['src/MessageIds'] , function(MessageIds) {
+define('../jobs/SimpleJob', [], function() {
 
   function SimpleJob() {}
 
-  // figure out ES6 crap later...
-
-  // return default new class {
-  //   dispatch(options) {
-  //     var workerId = options.workerId;
-  //   }
-  // };
 
   SimpleJob.prototype = {
+    dispatch_new: function(workerId, parameters) {
+      DispatcherHelper.execute(workerId, parameters, this._work);
+    },
     dispatch: function(workerId, parameters) {
-      var op = parameters.op;
-      if (!op) {
-        op = '+';
+
+      var op = '+';
+      if (parameters && parameters.op) {
+        op = parameters.op;
       }
       var result;
       switch (op) {
@@ -39,11 +36,39 @@ define('src/SimpleJob', ['src/MessageIds'] , function(MessageIds) {
         throw new Error('Infinity Gauntlet');
       }
       //var result = parameters.param1 + parameters.param2;
+      //DispatcherHelper.success(result);
       postMessage({
-        msg: MessageIds.DISPATCH_COMPLETE,
+        msg: 5,
         workerId: workerId,
         payload: result
       });
+    },
+    _work: function(workerId, parameters) {
+      var op = '+';
+      if (parameters && parameters.op) {
+        op = parameters.op;
+      }
+      var result;
+      switch (op) {
+        case '+':
+          result = parameters.param1 + parameters.param2;
+          break;
+        case '-':
+          result = parameters.param1 - parameters.param2;
+          break;
+        case '*':
+          result = parameters.param1 * parameters.param2;
+          break;
+        case '/':
+          result = parameters.param1 / parameters.param2;
+          break;
+      }
+      if (isNaN(result)) {
+        throw new Error('IsNaN man...');
+      }
+      if (!isFinite(result)) {
+        throw new Error('Infinity Gauntlet');
+      }
     }
   };
 

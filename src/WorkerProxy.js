@@ -1,4 +1,4 @@
-define('src/WorkerProxy', ['src/IdGenerator', 'src/WorkerStates', 'src/MessageIds'], function(IdGenerator, WorkerStates, MessageIds) {
+ define('src/WorkerProxy', ['src/IdGenerator', 'src/WorkerStates', 'src/MessageIds'], function(IdGenerator, WorkerStates, MessageIds) {
 
   function WorkerProxy(parameters) {
     this._boundOnMessage = this.onMessage.bind(this);

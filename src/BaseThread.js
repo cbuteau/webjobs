@@ -74,12 +74,21 @@ onmessage = function(e) {
           baseUrl: data.baseUrl,
           waitSeconds: 20
         }, [data.jobPath], function(JobDispatcher) {
-          self.dispatcher = new JobDispatcher();
-          postMessage({
-            msg: 2,
-            workerId: data.workerId,
-            comment: 'Initialized dispatcher'
-          });
+          try {
+            self.dispatcher = new JobDispatcher();
+            postMessage({
+              msg: 2,
+              workerId: data.workerId,
+              comment: 'Initialized dispatcher'
+            });
+          } catch (errDispatcher) {
+            postMessage({
+              msg: 3,
+              workerId: data.workerId,
+              comment: 'Instantiation of dispatcher failed',
+              error: self.helper.convertError(errDispatcher)
+            });
+          }
 
         }, function(requireerr) {
           postMessage({
@@ -138,7 +147,7 @@ onmessage = function(e) {
 
       break;
     case 4:
-      // Diapatch work data to job...
+      // Dispatch work data to job...
       try {
         self.dispatcher.dispatch(data.workerId, data.params);
       } catch(err) {

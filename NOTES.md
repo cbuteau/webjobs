@@ -34,3 +34,29 @@ Did some coding on the workerproxy...need more code before integration...
 Stepping through require code in the broswer...require/define goes through this context.nameToUrl() mapper before being loaded so the name is seperate from url...we need that in Worker Context...
 
 Think we finally figured out the requirejs baseUrl problem...committing progress
+
+07/18/2018
+
+Trying to get test site running with just requirejs...and some HTML elements.
+
+8/1/2018
+
+bootstrapper.js gets a 404...either name is wrong or something else...
+renamed to main ...got main loading but can't get troublemaker loading...
+
+Putting down
+
+8/23/2018
+
+Started up again...
+we probably need to move index.html to the root and serve from the root for the server for the test webpage
+
+9/4/2018
+
+Had great idea once up and running for requirejs and ES 2015...start a branch? for a 2016+ format port.
+
+9/21/2018
+Fixed a bug in ensureId()
+assign works fine.
+
+Still not getting it started.

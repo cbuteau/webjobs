@@ -50,6 +50,76 @@ the coolest thing is git made it easy to do this.
 + [x] Get basic tests running with client code running webworkers.
 
 
+## Dispatching
+
+The main key to managing a thread was devising a protocol to initialize, start, and complete work.
+
+Each message is an int because I prefer int compares to string compares for efficiency.
+
+```plantuml
+Main->WebWorker : start
+WebWorker->Main : SCRIPTLOADED
+Main->WebWorker : BASEINIT
+WebWorker->Main : BASEINIT_COMPLETE
+WebWorker->Main : BASEINIT_ERROR
+Main->WebWorker : DISPATCH
+WebWorker->Main : DISPATCH_COMPLETE
+WebWorker->Main : DISPATCH_ERROR
+```
+
+Some enums that matter
+
+```plantuml
+class MessagIds <<enumeration>> {
+  SCRIPTLOADED: 0,
+  BASEINIT: 1,
+  BASEINIT_COMPLETE: 2,
+  BASEINIT_ERROR: 3,
+  DISPATCH: 4,
+  DISPATCH_COMPLETE: 5,
+  DISPATCH_ERROR: 6
+}
+
+class WorkerStates <<enumeration>> {
+  STARTING: 0,
+  STARTED: 1,
+  LOADED: 2,
+  INITIALIZED: 3,
+  DISPATCH: 4,
+  JOB: 5,
+  COMPLETED: 6
+}
+```
+
+And a state machine describing how a thread is managed.
+
+```plantuml
+@startuml
+
+[*] --> STARTING
+STARTING --> STARTED
+STARTING : Here we instantiate the Worker() object.
+
+STARTED --> LOADED
+STARTED : We get a message back that the basethread script properly loaded.
+LOADED --> INITIALIZED
+
+INITIALIZED : This is where we load requirejs.
+INITIALIZED : TODO Load any loading subsystem.
+
+
+INITIALIZED --> DISPATCH
+
+DISPATCH : This is where the execution
+DISPATCH :  of the sided script occurs.
+
+DISPATCH --> JOB
+JOB --> COMPLETED
+COMPLETED --> [*]
+
+@enduml
+```
+
 ## Status
 
 6/09/2018
@@ -65,3 +135,7 @@ Late ... the requirejs is configured and we supposdely succeed in loading Job sc
 SO if we give the full path to the job script the importScripts() call works and we get called back but the object is null because the define does not match the url...
 
 Very difficult problem to solve...
+
+10/3/2018
+
+Got testsite doing its first job.
