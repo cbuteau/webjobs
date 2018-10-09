@@ -2,10 +2,10 @@
 
 
 [*] --> STARTING
-STARTING --> STARTED
+STARTING --> STARTED : SCRIPTLOADED
 STARTING : Here we instantiate the Worker() object.
 
-STARTED --> LOADED
+STARTED --> LOADED : BASEINIT_COMPLETE
 STARTED : We get a message back that the basethread script properly loaded.
 LOADED --> INITIALIZED
 
@@ -21,6 +21,8 @@ DISPATCH :  of the sided script occurs.
 DISPATCH --> JOB
 JOB --> COMPLETED
 COMPLETED --> [*]
+
+STARTING --> COMPLETED : Exception
 
 
 

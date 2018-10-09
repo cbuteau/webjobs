@@ -92,3 +92,23 @@ Got testsite doing its first job.
 Got different operations working...
 Cleaned up some vulnerabilities.
 Putting Down.
+
+10/4/2018
+
+had the idea that the test site should have 4 or more sections with testers in them.
+A little tired to try coding right now.
+
+State machine should be less states.
+
+10/7/2018
+
+Started looking at layout to tester.
+This is what we get a new index.html with...
+https://codepen.io/mozilladevelopers/pen/JrReJE
+
+Maybe we should finally load a style sheet.
+
+Lets get the longing recusivejob working
+and then a xhr job...
+
+We got layout of 4 grid...now we need to figure out how to keep divs in parent div.

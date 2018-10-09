@@ -1,4 +1,4 @@
-define('src/RecursiveJob' ,[], function() {
+define('../src/RecursiveJob' ,[], function() {
 
   function factorial(n) {
     if (n >= 1) {
