@@ -15,13 +15,13 @@
     });
 
 
-    var addButton = document.querySelector('#execButton');
+    var addButton = document.querySelector('#simple_execButton');
 
-    var param1 = document.querySelector('#param1');
-    var param2 = document.querySelector('#param2');
-    var paramOp = document.querySelector('#paramop');
+    var param1 = document.querySelector('#simple_param1');
+    var param2 = document.querySelector('#simple_param2');
+    var paramOp = document.querySelector('#simple_paramop');
 
-    var resultDom = document.querySelector('#result');
+    var resultDom = document.querySelector('#simple_result');
 
     addButton.addEventListener('click', function(e) {
       var prom = TroubleMaker.start({
@@ -35,6 +35,24 @@
 
       prom.then(function(result) {
         resultDom.innerHTML = result.toString();
+      });
+    });
+
+
+    var reExecButton = document.querySelector('#recurse_execButton');
+    var reParamOne = document.querySelector('#recurse_param1');
+    var reresultDom = document.querySelector('#recurse_result');
+
+    reExecButton.addEventListener('click', function(e) {
+      var prom = TroubleMaker.start({
+        jobPath: '../jobs/RecursiveJob',
+        jobparams: {
+          n: parseInt(reParamOne.value),
+        }
+      });
+
+      prom.then(function(result) {
+        reresultDom.innerHTML = result.toString();
       });
     });
 
