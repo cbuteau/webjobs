@@ -24,28 +24,36 @@
     this.jobparams = parameters.jobparams;
     this.settings.state = WorkerStates.STARTING;
     this.settings.id = ensureId();
-    this._worker = new Worker(parameters.basePath);
-    this._worker.onmessage = this._boundOnMessage;
-    this.settings.startTime = Date.now();
-    this.settings.state = WorkerStates.STARTED;
-    this.queue({
-      msg: MessageIds.BASEINIT,
-      baseUrl: parameters.baseUrl,
-      jobPath: parameters.jobPath,
-      workerId: this.settings.id,
-      requirePath: parameters.requirePath
-    });
+
     var that = this;
     this._promise = new Promise(function(resolve, reject) {
       that.reject = reject;
       that.resolve = resolve;
     });
 
-    if (parameters.timeout) {
-      setTimeout(function() {
-        that.rejectReason = 'timeout';
-        that.reject(new Error('Job Timeout'));
-      }, parameters.timeout);
+
+    try {
+      this._worker = new Worker(parameters.basePath);
+      this._worker.onmessage = this._boundOnMessage;
+      this.settings.startTime = Date.now();
+      this.settings.state = WorkerStates.STARTED;
+      this.queue({
+        msg: MessageIds.BASEINIT,
+        baseUrl: parameters.baseUrl,
+        jobPath: parameters.jobPath,
+        workerId: this.settings.id,
+        requirePath: parameters.requirePath
+      });
+
+      if (parameters.timeout) {
+        setTimeout(function() {
+          that.rejectReason = 'timeout';
+          that.reject(new Error('Job Timeout'));
+        }, parameters.timeout);
+      }
+    } catch(e) {
+      this.settings.state = WorkerStates.COMPLETED;
+      this.reject(e);
     }
   }
 

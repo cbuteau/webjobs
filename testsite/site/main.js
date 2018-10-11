@@ -35,6 +35,8 @@
 
       prom.then(function(result) {
         resultDom.innerHTML = result.toString();
+      }).catch(function(e) {
+        console.error(e);
       });
     });
 
@@ -53,6 +55,8 @@
 
       prom.then(function(result) {
         reresultDom.innerHTML = result.toString();
+      }).catch(function(e) {
+        console.error(e);
       });
     });
 
@@ -69,6 +73,8 @@
 
       prom.then(function(result) {
         wsresultDom.innerHTML = JSON.stringify(result, null, '  '); // result.toString();
+      }).catch(function(e) {
+        console.error(e);
       });
     });
 

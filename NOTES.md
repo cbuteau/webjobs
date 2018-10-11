@@ -60,3 +60,10 @@ Fixed a bug in ensureId()
 assign works fine.
 
 Still not getting it started.
+
+10/11/2018
+
+made a lot of headway with tester and jobs.
+Need to figure out why src is part of url for followup requests.
+then we can use helper modules in the jobs.
+Tried changing baseUrl in require config to '../src' but it did not help.
