@@ -57,5 +57,21 @@
     });
 
 
+    var wsExecButton = document.querySelector('#ws_execButton');
+    var wsresultDom = document.querySelector('#ws_result');
+
+    wsExecButton.addEventListener('click', function(e) {
+      var prom = TroubleMaker.start({
+        jobPath: '../jobs/TimeZoneJob',
+        jobparams: {
+        }
+      });
+
+      prom.then(function(result) {
+        wsresultDom.innerHTML = JSON.stringify(result); // result.toString();
+      });
+    });
+
+
   });
 })();

@@ -1,11 +1,12 @@
-define([], function() {
+'use strict';
+define('../jobs/TimeZoneJob', [], function() {
 
   function request(url, verb, body, onComplete, onFailure) {
     var xhr = new XMLHttpRequest();
 
     function transferComplete(evt) {
       console.log("The transfer is complete.");
-      onComplete(JSON.parse(evt.currentTarget.responseText);
+      onComplete(JSON.parse(evt.currentTarget.responseText));
     }
 
     function transferFailed(evt) {
@@ -29,7 +30,20 @@ define([], function() {
 
   TimeZoneJob.prototype = {
     dispatch(workerId, params) {
-      request('http://ip.jsontest.com/', 'GET', function(data) {
+      // try timezone api.
+      // http://api.timezonedb.com/v2.1/get-time-zone
+
+      // this works
+      // http://ip.jsontest.com/
+
+
+      // Bunch of APIs I could test.
+      // https://reqres.in/
+
+      // This is with our free API key.
+      // http://api.timezonedb.com/v2.1/get-time-zone?key=YLT4O2POSKCD&format=json&by=zone&zone=America/New_York
+
+      request('http://api.timezonedb.com/v2.1/get-time-zone?key=YLT4O2POSKCD&format=json&by=zone&zone=America/New_York', 'GET', function(data) {
         postMessage({
           msg: 4,
           workerId: workerId,
