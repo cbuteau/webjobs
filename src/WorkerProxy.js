@@ -57,9 +57,12 @@
           break;
         case MessageIds.DISPATCH_COMPLETE:
           this.resolve(data.payload);
+          this.settings.state = WorkerStates.COMPLETED;
+          // TODO move into Thread Pool to reinit.
           break;
         case MessageIds.DISPATCH_ERROR:
           this.reject(data.error);
+          this.settings.state = WorkerStates.COMPLETED;
           break;
         default:
           console.log('Unhandled = ' + data.msg);
