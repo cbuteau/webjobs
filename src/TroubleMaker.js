@@ -1,5 +1,5 @@
 'use strict';
-define('src/TroubleMaker', ['src/IdGenerator', 'src/MessageIds', 'src/WorkerStates', 'src/ThePool', 'src/WorkerProxy'], function(IdGenerator, MessageIds, WorkerStates, ThePool, WorkerProxy) {
+define('src/TroubleMaker', ['src/MessageIds', 'src/WorkerStates', 'src/ThePool', 'src/WorkerProxy'], function(MessageIds, WorkerStates, ThePool, WorkerProxy) {
 
   var instance = null;
 
@@ -12,7 +12,7 @@ define('src/TroubleMaker', ['src/IdGenerator', 'src/MessageIds', 'src/WorkerStat
       // setup resolver...
       this.options = options;
       // bind it once..
-      this._boundOnMessage = this._workerOnMessage.bind(this);
+      //this._boundOnMessage = this._workerOnMessage.bind(this);
 
       this.requirejsBaseUrl = require.toUrl('');
     },

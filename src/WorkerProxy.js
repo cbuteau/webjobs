@@ -1,4 +1,21 @@
- define('src/WorkerProxy', ['src/IdGenerator', 'src/WorkerStates', 'src/MessageIds'], function(IdGenerator, WorkerStates, MessageIds) {
+ define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(WorkerStates, MessageIds) {
+
+   var usedIds = [];
+
+   function getId() {
+     return '' + Math.random().toString(36).substr(2, 9);
+   }
+
+   function ensureId() {
+     var id = getId();
+     while(usedIds.indexOf(id) !== -1) {
+       id = getId();
+     }
+     usedIds.push(id);
+
+     return id;
+   }
+
 
   function WorkerProxy(parameters) {
     this._boundOnMessage = this.onMessage.bind(this);
@@ -6,7 +23,7 @@
     this.settings = {};
     this.jobparams = parameters.jobparams;
     this.settings.state = WorkerStates.STARTING;
-    this.settings.id =  IdGenerator.generate();
+    this.settings.id = ensureId();
     this._worker = new Worker(parameters.basePath);
     this._worker.onmessage = this._boundOnMessage;
     this.settings.startTime = Date.now();

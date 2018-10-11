@@ -4,18 +4,15 @@ define('src/ThePool', ['src/WorkerStates'], function(WorkerStates) {
   function ThePool() {
     this.list = [];
     this.completed = [];
+    this.deleteCallbacks = {};
     this.boundThink = this.think.bind(this);
 
   }
 
   ThePool.prototype = {
     dropoff: function(worker, deleteCallback) {
-      this.list.push({
-        worker: worker,
-        deleteCallback: deleteCallback
-      });
-
-
+      this.list.push(worker);
+      this.deleteCallbacks[worker.settings.id] = deleteCallback;
     },
 
     pickup: function(parameters) {

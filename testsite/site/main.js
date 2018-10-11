@@ -68,7 +68,7 @@
       });
 
       prom.then(function(result) {
-        wsresultDom.innerHTML = JSON.stringify(result); // result.toString();
+        wsresultDom.innerHTML = JSON.stringify(result, null, '  '); // result.toString();
       });
     });
 

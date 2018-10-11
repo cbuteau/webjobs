@@ -38,6 +38,16 @@ define('SomeProcessingModule',
   });
 ```
 
+## Usage
+
+In the beginiing I was going to write automated tests that excercised this library.
+But I found the tests would always timeout in playback and pass in debugging so I moved to a demo webstie to debug the kinks and be able to add features.
+
+```cmd
+REM this runs an express server that serves a basic test website that you can run several tests.
+node server.js
+```
+
 ## TroubleMaker
 
 At some point some night... I decided JobStarter and JobManager were too lame.
@@ -112,3 +122,10 @@ Lets get the longing recusivejob working
 and then a xhr job...
 
 We got layout of 4 grid...now we need to figure out how to keep divs in parent div.
+
+10/11/2018
+
+Got layout for tester webapp working.
+3 separate tests working.
+
+Next major hurdle...thread pooling and reinitializing...
