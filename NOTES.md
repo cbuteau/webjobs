@@ -67,3 +67,10 @@ made a lot of headway with tester and jobs.
 Need to figure out why src is part of url for followup requests.
 then we can use helper modules in the jobs.
 Tried changing baseUrl in require config to '../src' but it did not help.
+
+10/13/2018
+
+Got a generic webservice job working.
+next priorities...
+1. Thread pooling
+2. the relative paths of jobs loading...get it working with require.
