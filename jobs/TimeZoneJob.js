@@ -43,7 +43,11 @@ define('../jobs/TimeZoneJob', [], function() {
       // This is with our free API key.
       // http://api.timezonedb.com/v2.1/get-time-zone?key=YLT4O2POSKCD&format=json&by=zone&zone=America/New_York
 
-      request('http://api.timezonedb.com/v2.1/get-time-zone?key=YLT4O2POSKCD&format=json&by=zone&zone=America/New_York', 'GET', function(data) {
+      var url = 'http://api.timezonedb.com/v2.1/get-time-zone?key=' + params.apiKey + '&format=json&by=zone&zone=America/New_York '
+
+      // 'http://api.timezonedb.com/v2.1/get-time-zone?key=YLT4O2POSKCD&format=json&by=zone&zone=America/New_York'
+
+      request(url, 'GET', function(data) {
         postMessage({
           msg: 4,
           workerId: workerId,

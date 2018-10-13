@@ -61,6 +61,7 @@
     });
 
 
+    var wsApiParam = document.querySelector('#timez_apiparam');
     var wsExecButton = document.querySelector('#ws_execButton');
     var wsresultDom = document.querySelector('#ws_result');
 
@@ -68,6 +69,7 @@
       var prom = TroubleMaker.start({
         jobPath: '../jobs/TimeZoneJob',
         jobparams: {
+          apiKey: wsApiParam.value
         }
       });
 
