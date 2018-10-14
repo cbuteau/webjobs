@@ -4,7 +4,7 @@ requirejs.config({
   baseUrl: '',
   paths: {
     app: '../app',
-    lib: '../lib',
+    jobs: '../jobs',
     src: '../src',
     text: 'text'
   },
@@ -15,4 +15,4 @@ requirejs.config({
   }
 });
 
-requirejs(['testsite/site/main']);
+requirejs(['testsite/main']);
