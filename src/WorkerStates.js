@@ -5,8 +5,7 @@ define('src/WorkerStates', [], function() {
     LOADED: 2,
     INITIALIZED: 3,
     DISPATCH: 4,
-    JOB: 5,
-    COMPLETED: 6
+    COMPLETED: 5
   };
 
   Object.freeze(WorkerStates);
