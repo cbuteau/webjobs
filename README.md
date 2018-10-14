@@ -129,3 +129,7 @@ Got layout for tester webapp working.
 3 separate tests working.
 
 Next major hurdle...thread pooling and reinitializing...
+
+10/13/2018
+
+ThreadPooling first started working...

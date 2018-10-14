@@ -5,9 +5,8 @@
 STARTING --> STARTED : SCRIPTLOADED
 STARTING : Here we instantiate the Worker() object.
 
-STARTED --> LOADED : BASEINIT_COMPLETE
+STARTED --> INITIALIZED : BASEINIT_COMPLETE
 STARTED : We get a message back that the basethread script properly loaded.
-LOADED --> INITIALIZED
 
 INITIALIZED : This is where we load requirejs.
 INITIALIZED : TODO Load any loading subsystem.

@@ -1,18 +1,17 @@
-define('src/ThePool', ['src/WorkerStates'], function(WorkerStates) {
+define('src/ThePool', ['src/WorkerStates', 'src/WorkerProxy'], function(WorkerStates, WorkerProxy) {
   var instance = null;
 
   function ThePool() {
     this.list = [];
     this.completed = [];
-    this.deleteCallbacks = {};
-    this.boundThink = this.think.bind(this);
-
+    this.boundStateUpdate = this.stateUpdate.bind(this);
   }
 
   ThePool.prototype = {
-    dropoff: function(worker, deleteCallback) {
-      this.list.push(worker);
-      this.deleteCallbacks[worker.settings.id] = deleteCallback;
+    dropoff: function(worker) {
+      var myindex = this.list.indexOf(worker);
+      this.completed.push(worker);
+      this.list.splice(myindex, 1);
     },
 
     pickup: function(parameters) {
@@ -23,32 +22,20 @@ define('src/ThePool', ['src/WorkerStates'], function(WorkerStates) {
 
       if (worker === undefined) {
         // spawn by parameters passed in...
+        worker = new WorkerProxy(parameters);
+        worker.subscribe('StateChanged', this.boundStateUpdate);
+        this.list.push(worker);
+      } else {
+        worker.restart(parameters);
       }
 
       return worker;
     },
 
-    think: function() {
-
-      // logic to coral and reuse webworkers.
-      // we would have to reload thier initializer.
-      var totrim = [];
-      for (var i = 0; i < this.list.length; i++) {
-        var worker = this.list[i];
-        if (worker.state === WorkerStates.COMPLETED) {
-          totrim.push(worker);
-          this.completed.push(worker);
-        }
-      }
-
-      for (var j = 0 ; j < totrim.length; j++) {
-        var workertotrim = totrim[j];
-        var myindex = this.list.indexOf(workertotrim);
-        this.list = this.list.splice(myindex, 1);
-      }
-
-      if (this.list.length) {
-        setTimeout(this.boundThink, 0);
+    stateUpdate: function(state, worker) {
+      console.log('id:' + worker.settings.id + ' state:' + state);
+      if (state === WorkerStates.COMPLETED) {
+        this.dropoff(worker);
       }
     }
   }

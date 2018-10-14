@@ -1,3 +1,4 @@
+
  define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(WorkerStates, MessageIds) {
 
    var usedIds = [];
@@ -20,6 +21,7 @@
   function WorkerProxy(parameters) {
     this._boundOnMessage = this.onMessage.bind(this);
     this.messages  = [];
+    this.callbacks = [];
     this.settings = {};
     this.jobparams = parameters.jobparams;
     this.settings.state = WorkerStates.STARTING;
@@ -33,7 +35,8 @@
 
 
     try {
-      this._worker = new Worker(parameters.basePath);
+      //this._worker = new Worker(parameters.basePath);
+      this._worker = new Worker('src/BaseThread.js');
       this._worker.onmessage = this._boundOnMessage;
       this.settings.startTime = Date.now();
       this.settings.state = WorkerStates.STARTED;
@@ -64,6 +67,7 @@
       switch (data.msg) {
         case MessageIds.SCRIPTLOADED:
           this.process();
+          this.updateState(WorkerStates.STARTED);
           break;
         case MessageIds.BASEINIT_COMPLETE:
           this.settings.state = WorkerStates.INITIALIZED;
@@ -71,23 +75,21 @@
             msg: MessageIds.DISPATCH,
             workerId: data.workerId,
             params: this.jobparams
-          })
+          });
+          this.updateState(WorkerStates.JOB);
           break;
         case MessageIds.BASEINIT_ERROR:
-        // worker.state = WorkerStates.COMPLETED;
-        // worker.reject(data.error);
-          this.settings.state = WorkerStates.COMPLETED;
+          this.updateState(WorkerStates.COMPLETED);
           this.reject(data.error);
 
           break;
         case MessageIds.DISPATCH_COMPLETE:
           this.resolve(data.payload);
-          this.settings.state = WorkerStates.COMPLETED;
-          // TODO move into Thread Pool to reinit.
+          this.updateState(WorkerStates.COMPLETED);
           break;
         case MessageIds.DISPATCH_ERROR:
           this.reject(data.error);
-          this.settings.state = WorkerStates.COMPLETED;
+          this.updateState(WorkerStates.COMPLETED);
           break;
         default:
           console.log('Unhandled = ' + data.msg);
@@ -104,11 +106,45 @@
         msg = this.messages.pop();
       }
     },
+    restart: function(parameters) {
+      var that = this;
+      this._promise = new Promise(function(resolve, reject) {
+        that.reject = reject;
+        that.resolve = resolve;
+      });
+
+      this.jobparams = parameters.jobparams;
+      this.queue({
+        msg: MessageIds.BASEINIT,
+        baseUrl: parameters.baseUrl,
+        jobPath: parameters.jobPath,
+        workerId: this.settings.id,
+        requirePath: parameters.requirePath
+      });
+
+      if (parameters.timeout) {
+        setTimeout(function() {
+          that.rejectReason = 'timeout';
+          that.reject(new Error('Job Timeout'));
+        }, parameters.timeout);
+      }
+
+      this.process();
+    },
+    subscribe: function(eventId, callback) {
+      // if we have more events we can build a pubsub mechanism...
+      this.callbacks.push(callback);
+    },
+    updateState: function(newState) {
+      this.settings.state = newState;
+      for (var i = 0; i < this.callbacks.length; i++) {
+        this.callbacks[i](newState, this);
+      }
+    },
     getPromise: function() {
       return this._promise;
     }
   }
-
 
   return WorkerProxy;
 });

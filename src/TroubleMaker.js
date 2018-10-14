@@ -17,7 +17,22 @@ define('src/TroubleMaker', ['src/MessageIds', 'src/WorkerStates', 'src/ThePool',
       this.requirejsBaseUrl = require.toUrl('');
     },
     start: function(options) {
-      var path = this._resolve(options.jobPath);
+      //var basePath = this._resolve('src/BaseThread.js');
+
+      var proxy = ThePool.pickup({
+        jobparams: options.jobparams,
+        baseUrl: this.requirejsBaseUrl,
+        requirePath: this.options.resolver.getrequirePath(),
+        jobPath: options.jobPath,
+        timeout: options.timeout
+      });
+
+      this.workers[proxy.settings.workerId] = proxy;
+
+      return proxy.getPromise();
+    },
+    start_proxy: function(options) {
+      //var path = this._resolve(options.jobPath);
       var basePath = this._resolve('src/BaseThread.js');
 
       var proxy = new WorkerProxy({
@@ -32,78 +47,6 @@ define('src/TroubleMaker', ['src/MessageIds', 'src/WorkerStates', 'src/ThePool',
       this.workers[proxy.settings.workerId] = proxy;
 
       return proxy.getPromise();
-    },
-    start_old: function(options) {
-      // resolve actual path to script...
-      var path = this._resolve(options.jobPath);
-      var basePath = this._resolve('src/BaseThread.js');
-
-
-
-      var workerId = IdGenerator.generate();
-      var worker = this.workers[workerId] = new Worker(basePath);
-      worker.workerId = workerId;
-      worker.startTime = Date.now();
-      worker.state = WorkerStates.STARTED;
-      worker.onmessage = this._boundOnMessage;
-
-      worker.jobparams = options.jobparams;
-      worker.messages = [];
-      worker.jobparams = options.jobparams;
-
-      worker.messages.push({
-        msg: MessageIds.BASEINIT,
-        requirejs: this.requirejsBaseUrl,
-        baseUrl: this.options.resolver.baseUrl(),
-        jobPath: options.jobPath,
-        fullJobPath: path,
-        workerId: workerId,
-        requirePath: this.options.resolver.getrequirePath()
-      });
-
-      // worker.postMessage({
-      //   msg: MessageIds.BASEINIT,
-      //   requirejs: this.requirejsBaseUrl,
-      //   baseUrl: this.options.resolver.baseUrl(),
-      //   jobPath: options.jobPath,
-      //   fullJobPath: path,
-      //   workerId: workerId,
-      //   requirePath: this.options.resolver.getrequirePath()
-      // });
-
-
-      if (options.timeout) {
-        setTimeout(function() {
-          worker.rejectReason = 'timeout';
-          worker.reject(new Error('Job Timeout'));
-        }, options.timeout);
-      }
-
-      var promise = new Promise(function(resolve, reject) {
-        // appedn onto worker object.
-        // if it does not work append onto wrppper object.
-        worker.resolve = resolve;
-        worker.reject = reject;
-      });
-
-      var that = this;
-
-      var finish = function() {
-        worker.isDone = true;
-        worker.doneTime = Date.now();
-        that._cleanupWorkers();
-      }
-
-      promise.catch(function(err) {
-        worker.isFaulted = true;
-        finish();
-      });
-
-      promise.then(function(result) {
-        finish();
-      });
-
-      return promise;
     },
     _workerOnMessage: function(e) {
       var data = e.data;
