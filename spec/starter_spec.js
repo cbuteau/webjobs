@@ -27,7 +27,7 @@ define('spec/starter_spec', ['src/TroubleMaker', 'src/BasicResolver'], function(
 
     it ('Super short timeout', function(done) {
       var prom = TroubleMaker.start({
-        jobPath: 'src/SimpleJob',
+        jobPath: 'jobs/SimpleJob',
         timeout: 20
       });
 
@@ -43,7 +43,7 @@ define('spec/starter_spec', ['src/TroubleMaker', 'src/BasicResolver'], function(
     it ('Start a Simple Job', function(done) {
       //var starter = new JobStarter();
       var prom = TroubleMaker.start({
-        jobPath: 'src/SimpleJob',
+        jobPath: 'jobs/SimpleJob',
         jobparams: {
           param1: 10,
           param2: 20

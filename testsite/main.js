@@ -25,7 +25,7 @@
 
     addButton.addEventListener('click', function(e) {
       var prom = TroubleMaker.start({
-        jobPath: '../jobs/SimpleJob',
+        jobPath: 'jobs/SimpleJob',
         jobparams: {
           param1: parseInt(param1.value),
           param2: parseInt(param2.value),
@@ -47,7 +47,7 @@
 
     reExecButton.addEventListener('click', function(e) {
       var prom = TroubleMaker.start({
-        jobPath: '../jobs/RecursiveJob',
+        jobPath: 'jobs/RecursiveJob',
         jobparams: {
           n: parseInt(reParamOne.value),
         }
@@ -68,7 +68,7 @@
     wsExecButton.addEventListener('click', function(e) {
       var url = 'http://api.timezonedb.com/v2.1/get-time-zone?key=' + wsApiParam.value + '&format=json&by=zone&zone=America/New_York';
       var prom = TroubleMaker.start({
-        jobPath: '../jobs/GenericWebServiceJob',
+        jobPath: 'jobs/GenericWebServiceJob',
         jobparams: {
           url: url,
           verb: 'GET'
@@ -95,7 +95,7 @@
     multiExecButton.addEventListener('click', function(e) {
       var url = 'http://api.timezonedb.com/v2.1/list-time-zone?key=' + multiApiParam.value + '&format=json';
       var prom = TroubleMaker.start({
-        jobPath: '../jobs/GenericWebServiceJob',
+        jobPath: 'jobs/GenericWebServiceJob',
         jobparams: {
           url: url,
           verb: 'GET'
@@ -130,7 +130,7 @@
     multiGetButton.addEventListener('click', function(e) {
       var url = 'http://api.timezonedb.com/v2.1/get-time-zone?key=' + multiApiParam.value + '&format=json&by=zone&zone=' + multiZoneList.value;
       var prom = TroubleMaker.start({
-        jobPath: '../jobs/GenericWebServiceJob',
+        jobPath: 'jobs/GenericWebServiceJob',
         jobparams: {
           url: url,
           verb: 'GET'

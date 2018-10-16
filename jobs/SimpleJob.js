@@ -1,14 +1,14 @@
 'use strict';
-define('../jobs/SimpleJob', [], function() {
+define('jobs/SimpleJob', ['src/DispatcherHelper'], function(DispatcherHelper) {
 
   function SimpleJob() {}
 
 
   SimpleJob.prototype = {
-    dispatch_new: function(workerId, parameters) {
+    dispatch: function(workerId, parameters) {
       DispatcherHelper.execute(workerId, parameters, this._work);
     },
-    dispatch: function(workerId, parameters) {
+    dispatch_old: function(workerId, parameters) {
 
       var op = '+';
       if (parameters && parameters.op) {
@@ -69,6 +69,8 @@ define('../jobs/SimpleJob', [], function() {
       if (!isFinite(result)) {
         throw new Error('Infinity Gauntlet');
       }
+
+      return result;
     }
   };
 

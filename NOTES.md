@@ -76,3 +76,15 @@ next priorities...
 2. the relative paths of jobs loading...get it working with require.
 
 8:16 PM Thread Pooling is working...
+
+10/15/2018
+
+Check out these worker samples to see if we can divine the pathing problem.
+https://github.com/whatwg/html/tree/1332efd5e4c27ae859bf2316c6b477d77cf93716/demos
+Nope they do not.
+
+We tried moving the BaseHTread out of src and then performing inportScripts('jobs/RecursiveJob.js')
+but we ended up needing the ..//
+it suddenly started working...
+Moving the BaseThread to the root of serving worked it out...
+Going to check in a copy for now.

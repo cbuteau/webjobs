@@ -36,7 +36,7 @@
 
     try {
       //this._worker = new Worker(parameters.basePath);
-      this._worker = new Worker('src/BaseThread.js');
+      this._worker = new Worker('BaseThread.js');
       this._worker.onmessage = this._boundOnMessage;
       this.settings.startTime = Date.now();
       this.settings.state = WorkerStates.STARTED;

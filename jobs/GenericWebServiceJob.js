@@ -1,4 +1,4 @@
-define('../jobs/GenericWebServiceJob', [], function() {
+define('jobs/GenericWebServiceJob', [], function() {
 
   function request(url, verb, body, onComplete, onFailure) {
     var xhr = new XMLHttpRequest();
