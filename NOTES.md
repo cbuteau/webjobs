@@ -88,3 +88,9 @@ but we ended up needing the ..//
 it suddenly started working...
 Moving the BaseThread to the root of serving worked it out...
 Going to check in a copy for now.
+
+11:08
+Trying to install puppeteer and failing.
+Trying to switch to jest and new tech.
+https://medium.com/ovrsea/headless-browser-testing-with-jest-and-puppeteer-2cf7d04f4af5
+https://itnext.io/testing-your-javascript-in-a-browser-with-jest-puppeteer-express-and-webpack-c998a37ef887
