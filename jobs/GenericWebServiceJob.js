@@ -4,7 +4,7 @@ define('jobs/GenericWebServiceJob', [], function() {
 
     var xhr;
 
-    if (window.XMLHttpRequest) {
+    if (self.XMLHttpRequest) {
       xhr = new XMLHttpRequest();
     } else {
       // I hate IE
@@ -36,7 +36,7 @@ define('jobs/GenericWebServiceJob', [], function() {
   function GenericWebServiceJob() {}
 
   GenericWebServiceJob.prototype = {
-    dispatch(workerId, params) {
+    dispatch: function(workerId, params) {
       /* IE does not like single line comments.
       try timezone api.
       http://api.timezonedb.com/v2.1/get-time-zone

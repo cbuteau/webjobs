@@ -45,12 +45,6 @@
   -->
 
     <script>
-      // var scQlib = document.querySelector('#qlib');
-      // scQlib.addEventListener('load', function(e) {
-      //   if (typeof window.Promise !== 'function') {
-      //     window.Promise = Q.Promise;
-      //   }
-      // });
       var hookQPromise = function() {
         if (Q) {
           if (typeof window.Promise !== 'function') {
@@ -63,9 +57,6 @@
 
       document.addEventListener("DOMContentLoaded", function(event) {
         hookQPromise();
-        // if (typeof window.Promise !== 'function') {
-        //   window.Promise = Q.Promise;
-        // }
         console.log("DOM fully loaded and parsed");
       });
     </script>
@@ -187,56 +178,4 @@
 
   </body>
 
-  <!-- <form>
-    <div class="container">
-      <div class="tester tester1">
-        <label for="param1">Parameter One</label>
-        <input id="param1" type="text" name="text">
-        <label for="param2">Parameter Two</label>
-        <input id="param2" type="text" name="text">
-        <input id="paramop" type="text" list="operators" />
-
-        <datalist id="operators">
-            <option value="+">
-            <option value="-">
-            <option value="*">
-            <option value="/">
-        </datalist>
-      </div>
-      <div id="execButton" class="button">
-        Execute
-      </div>
-      <div>
-        <textarea id="result"></textarea>
-      </div>
-      </div>
-      <div class="tester tester2"></div>
-      <div class="tester tester3"></div>
-      <div class="tester tester4"></div>
-    </div>
-
-    <div>
-      <label for="param1">Parameter One</label>
-      <input id="param1" type="text" name="text">
-      <label for="param2">Parameter Two</label>
-      <input id="param2" type="text" name="text">
-      <input id="paramop" type="text" list="operators" />
-
-      <datalist id="operators">
-          <option value="+">
-          <option value="-">
-          <option value="*">
-          <option value="/">
-      </datalist>
-    </div>
-    <div id="addButton" class="button">
-      Add
-    </div>
-    <div>
-      <textarea id="result"></textarea>
-    </div>
-
-  </form> -->
-
-  </body>
 </html>

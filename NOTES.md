@@ -102,3 +102,6 @@ we got 2 of the jobs working but the GenericeWebSerice problems...
 https://stackoverflow.com/questions/10903989/could-not-complete-the-operation-due-to-error-80020101-ie
 
 http://mattwhite.me/blog/2010/4/21/tracking-down-error-80020101-in-internet-exploder.html
+
+5:46
+now ie is working.
