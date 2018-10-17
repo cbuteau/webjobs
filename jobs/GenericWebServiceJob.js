@@ -1,7 +1,15 @@
 define('jobs/GenericWebServiceJob', [], function() {
 
   function request(url, verb, body, onComplete, onFailure) {
-    var xhr = new XMLHttpRequest();
+
+    var xhr;
+
+    if (window.XMLHttpRequest) {
+      xhr = new XMLHttpRequest();
+    } else {
+      // I hate IE
+      xhr = new ActiveXObject('Microsoft.XMLHTTP');
+    }
 
     function transferComplete(evt) {
       console.log("The transfer is complete.");
@@ -29,23 +37,24 @@ define('jobs/GenericWebServiceJob', [], function() {
 
   GenericWebServiceJob.prototype = {
     dispatch(workerId, params) {
-      // try timezone api.
-      // http://api.timezonedb.com/v2.1/get-time-zone
+      /* IE does not like single line comments.
+      try timezone api.
+      http://api.timezonedb.com/v2.1/get-time-zone
 
-      // this works
-      // http://ip.jsontest.com/
+      this works
+      http://ip.jsontest.com/
 
 
-      // Bunch of APIs I could test.
-      // https://reqres.in/
+      Bunch of APIs I could test.
+      https://reqres.in/
 
-      // This is with our free API key.
-      // http://api.timezonedb.com/v2.1/get-time-zone?key=YLT4O2POSKCD&format=json&by=zone&zone=America/New_York
+      This is with our free API key.
+      http://api.timezonedb.com/v2.1/get-time-zone?key=YLT4O2POSKCD&format=json&by=zone&zone=America/New_York
 
-      //var url = 'http://api.timezonedb.com/v2.1/get-time-zone?key=' + params.apiKey + '&format=json&by=zone&zone=America/New_York '
+      var url = 'http://api.timezonedb.com/v2.1/get-time-zone?key=' + params.apiKey + '&format=json&by=zone&zone=America/New_York '
 
-      // 'http://api.timezonedb.com/v2.1/get-time-zone?key=YLT4O2POSKCD&format=json&by=zone&zone=America/New_York'
-
+      'http://api.timezonedb.com/v2.1/get-time-zone?key=YLT4O2POSKCD&format=json&by=zone&zone=America/New_York'
+      */
       request(params.url, params.verb, function(data) {
         postMessage({
           msg: 4,

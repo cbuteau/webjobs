@@ -95,7 +95,7 @@ onmessage = function(e) {
             msg: 3,
             workerId: data.workerId,
             comment: 'Require of Job failed',
-            error: self.helper.convertError(requireerr)
+            error: self.helper.convertError(requireerr.originalError)
           });
 
         });

@@ -94,3 +94,11 @@ Trying to install puppeteer and failing.
 Trying to switch to jest and new tech.
 https://medium.com/ovrsea/headless-browser-testing-with-jest-and-puppeteer-2cf7d04f4af5
 https://itnext.io/testing-your-javascript-in-a-browser-with-jest-puppeteer-express-and-webpack-c998a37ef887
+
+10/17/2018
+
+tried to get IE working...at work...
+we got 2 of the jobs working but the GenericeWebSerice problems...
+https://stackoverflow.com/questions/10903989/could-not-complete-the-operation-due-to-error-80020101-ie
+
+http://mattwhite.me/blog/2010/4/21/tracking-down-error-80020101-in-internet-exploder.html
