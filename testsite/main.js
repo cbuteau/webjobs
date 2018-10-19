@@ -9,9 +9,7 @@
     console.log(requireScriptUrl);
 
     TroubleMaker.setup({
-      resolver: new BasicResolver({
-        requirePath: requireScriptUrl
-      }),
+      fullPathToRequire: requireScriptUrl
     });
 
 

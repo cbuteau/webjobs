@@ -45,7 +45,7 @@ But I found the tests would always timeout in playback and pass in debugging so 
 
 ```cmd
 REM this runs an express server that serves a basic test website that you can run several tests.
-node server.js
+node scripts/server.js
 ```
 
 ## TroubleMaker
@@ -130,6 +130,13 @@ Got layout for tester webapp working.
 
 Next major hurdle...thread pooling and reinitializing...
 
+
 10/13/2018
 
 ThreadPooling first started working...
+
+10/19/2018
+
+Removed resolver dependency.
+Also installed rollup() which will be our packager.
+Will work on rollup later.
