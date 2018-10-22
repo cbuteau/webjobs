@@ -140,3 +140,12 @@ ThreadPooling first started working...
 Removed resolver dependency.
 Also installed rollup() which will be our packager.
 Will work on rollup later.
+
+## 10/20/2018
+
+Get rollup to build in a dist directory
+then build website that runs off of dist.
+
+## 10/21/2018
+
+Rollup is discarded we will just compress with uglify.

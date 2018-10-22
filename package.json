@@ -25,6 +25,6 @@
     "karma-phantomjs-launcher": "1.0.4",
     "karma-requirejs": "1.1.0",
     "karma-spec-reporter": "0.0.32",
-    "rollup": "0.66.6"
+    "uglify-js": "3.4.9"
   }
 }

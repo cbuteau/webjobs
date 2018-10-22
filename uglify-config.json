@@ -1,0 +1,6 @@
+{
+  "input": "scr/*.js",
+  "output": "dist/src.js",
+  "compress": true,
+  "mangle": false
+}
