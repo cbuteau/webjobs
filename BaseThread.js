@@ -58,7 +58,7 @@ onmessage = function(e) {
 
   switch (data.msg) {
     case 1:
-      console.log('INIT');
+      //console.log('INIT');
       // LOad Job Script into thread using import scripts.
 
       // TODO somehow load requirejs and configure it...
@@ -99,35 +99,6 @@ onmessage = function(e) {
           });
 
         });
-
-        /*
-        requirejs.config({
-          baseUrl: data.requirejs,
-          waitSeconds: 20,
-        });
-
-        var resolved = requirejs.toUrl(data.jobPath);
-        require([resolved], function(JobDispatcher) {
-          self.dispatcher = new JobDispatcher();
-          postMessage({
-            msg: 2,
-            workerId: data.workerId,
-            comment: 'Initialized dispatcher'
-          });
-        }, function(requireerr) {
-          console.error(requireerr);
-          postMessage({
-            msg: 3,
-            workerId: data.workerId,
-            comment: 'Require of Job failed',
-            error: self.helper.convertError(requireerr)
-          });
-        });
-        */
-
-
-        //console.log(requirejs);
-        //importScripts('http://localhost:9876/base/node_modules/requirejs/require.js');
       } catch (err) {
         postMessage({
           msg: 2,
@@ -136,15 +107,6 @@ onmessage = function(e) {
           error: self.helper.convertError(err)
         });
       }
-
-      //importScripts('../src/requirejs.js');
-
-      // postMessage({
-      //   msg: 1,
-      //   workerId: data.workerId,
-      //   comment: 'Init complete'
-      // });
-
       break;
     case 4:
       // Dispatch work data to job...
@@ -161,12 +123,9 @@ onmessage = function(e) {
       console.log('you dropped a message on the floor.');
       break;
   }
-
-  // var workerResult = 'Result: ' + (e.data[0] * e.data[1]);
-  // console.log('Posting message back to main script');
-  // postMessage(workerResult);
 }
 
+// execute this to tell launcher that we loaded this thread.
 postMessage({
   msg: 0,
   workerId: 'unknown'
