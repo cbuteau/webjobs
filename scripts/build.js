@@ -20,9 +20,7 @@ for (var i = 0; i < list.length; i++) {
 var options = {
   toplevel: true,
   compress: {
-      global_defs: {
-          "@console.log": "alert"
-      },
+      global_defs: {},
       passes: 2
   },
   output: {

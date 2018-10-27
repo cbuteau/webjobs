@@ -16,6 +16,24 @@ So for some reason they named threads web workers in the browser so I have named
 
 So the idea is a library where you learn to kick small jobs to threading and then they notify you when it is done.
 
+## Things Learned
+
+It is very import to set rules about the messages passed back and forth.
+I am sure the future holds some shared memory and locks to make things easier but for now it is entirely message based.
+
+Where the thread loads is where importScripts() starts relative paths.
+Some people thought it was where you spawned the Worker() constructor but I have confirmed that it is where the actual thread script resides.
+
+So if you load the thread from
+apps/src/webjobs/MyThread.js
+
+relative paths for importScripts() within that thread will be
+apps/src/webjobs/
+
+This is okay if you are doing development with a test website like mine but more complex for a production website.
+I believe I will have to make it configurable.
+
+
 ## Samples
 
 ```javascript

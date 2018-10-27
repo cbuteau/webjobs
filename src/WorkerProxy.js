@@ -19,7 +19,6 @@
 
 
   function WorkerProxy(parameters) {
-    this._boundOnMessage = this.onMessage.bind(this);
     this.messages  = [];
     this.callbacks = [];
     this.settings = {};
@@ -35,9 +34,8 @@
 
 
     try {
-      //this._worker = new Worker(parameters.basePath);
       this._worker = new Worker('BaseThread.js');
-      this._worker.onmessage = this._boundOnMessage;
+      this._worker.onmessage = this.onMessage.bind(this);
       this.settings.startTime = Date.now();
       this.settings.state = WorkerStates.STARTED;
       this.queue({
