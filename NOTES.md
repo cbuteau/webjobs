@@ -105,3 +105,10 @@ http://mattwhite.me/blog/2010/4/21/tracking-down-error-80020101-in-internet-expl
 
 5:46
 now ie is working.
+
+11/02/1028
+
+Figure out how to output a requirejs library.
+
++ [One](https://www.sitepoint.com/building-library-with-requirejs/)
++ [Two](http://spadgos.github.io/blog/2013/10/19/using-requirejs-and-make-for-standalone-libraries/)

@@ -167,3 +167,14 @@ then build website that runs off of dist.
 ## 10/21/2018
 
 Rollup is discarded we will just compress with uglify.
+
+## 10/31/2018
+
+new idea... instead of compressing...figure out how to map to different apps using different requirejs.config() and paths
+
+```javascript
+requirejs.config({
+  'webjobs': 'src'
+  webjobs_jobs: 'jobs'
+});
+```
