@@ -112,3 +112,10 @@ Figure out how to output a requirejs library.
 
 + [One](https://www.sitepoint.com/building-library-with-requirejs/)
 + [Two](http://spadgos.github.io/blog/2013/10/19/using-requirejs-and-make-for-standalone-libraries/)
+
+
+11/14/2018
+
+New idea...
+Parse and regurgitate the define modules with a NEW pathing.
+Just change the define('star/my/webmodule')
