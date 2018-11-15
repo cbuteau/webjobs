@@ -1,3 +1,4 @@
+'use strict';
 define('src/DispatcherHelper', ['src/MessageIds'], function(MessageIds) {
   var instance = null;
 

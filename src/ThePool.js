@@ -1,3 +1,4 @@
+'use strict';
 define('src/ThePool', ['src/WorkerStates', 'src/WorkerProxy'], function(WorkerStates, WorkerProxy) {
   var instance = null;
 

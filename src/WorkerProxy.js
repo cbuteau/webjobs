@@ -1,5 +1,5 @@
-
- define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(WorkerStates, MessageIds) {
+'use strict';
+define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(WorkerStates, MessageIds) {
 
    var usedIds = [];
 

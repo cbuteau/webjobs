@@ -1,3 +1,4 @@
+'use strict';
 define('src/WorkerStates', [], function() {
   var WorkerStates = {
     STARTING: 0,
