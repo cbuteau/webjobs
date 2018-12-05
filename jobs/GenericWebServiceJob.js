@@ -1,3 +1,4 @@
+'use strict';
 define('jobs/GenericWebServiceJob', [], function() {
 
   function request(url, verb, body, onComplete, onFailure) {

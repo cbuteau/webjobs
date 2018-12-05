@@ -178,3 +178,7 @@ requirejs.config({
   webjobs_jobs: 'jobs'
 });
 ```
+## 11/24/2018
+
+The modify script is working.
+Now we should cleanout unused code and retest...

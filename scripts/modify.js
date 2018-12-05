@@ -55,8 +55,8 @@ function findSection(struct, type, name) {
 }
 
 function remapDefinePath(definepath, newparentpath) {
-  var parent = path.dirname(definepath);
-  var basename = path.basename(definepath);
+  var parent = path.posix.dirname(definepath);
+  var basename = path.posix.basename(definepath);
 
   return path.posix.join(newparentpath, basename);
 }
@@ -76,6 +76,34 @@ function remapDefine(defineSegment, newparentpath) {
   }
 }
 
+function processFiles(start, subdir) {
+  var files = fs.readdirSync(start);
+  for (var i = 0; i < files.length; i++) {
+    var file = files[i];
+    var full = path.join(__dirname, subdir, file);
+    console.log(full);
+    var data = fs.readFileSync(full, 'utf8');
+    var parsed = esprima.parse(data);
+    var thedefine = findSection(parsed, 'ExpressionStatement', 'define');
+    if (!thedefine) {
+      console.error('define NOT found fialure' + full);
+      return;
+    }
+    remapDefine(thedefine, replaceparent);
+    var outpath = path.join(__dirname, '../out/', path.basename(file, '.js') + '.json');
+    var outpathjs = path.join(__dirname, '../out/', path.basename(file, '.js') + '.js');
+    console.log(outpath);
+    fs.writeFileSync(outpath, JSON.stringify(parsed, null, 2));
+    fs.writeFileSync(outpathjs, escodegen.generate(parsed));
+  }
+}
+
+processFiles('./src', '../src/');
+
+processFiles('./jobs', '../jobs/');
+
+return
+
 
 var srcfiles = fs.readdirSync('./src');
 for (var i = 0; i < srcfiles.length; i++) {
@@ -88,6 +116,22 @@ for (var i = 0; i < srcfiles.length; i++) {
   remapDefine(thedefine, replaceparent);
   var outpath = path.join(__dirname, '../out/', path.basename(src, '.js') + '.json');
   var outpathjs = path.join(__dirname, '../out/', path.basename(src, '.js') + '.js');
+  console.log(outpath);
+  fs.writeFileSync(outpath, JSON.stringify(parsed, null, 2));
+  fs.writeFileSync(outpathjs, escodegen.generate(parsed));
+}
+
+var jobFiles = fs.readdirSync('./jobs');
+for (var j = 0; j < jobFiles.length; j++) {
+  var job = jobFiles[j];
+  var full= path.join(__dirname, '../jobs/', src);
+  console.log(full);
+  var data = fs.readFileSync(full, 'utf8');
+  var parsed = esprima.parse(data);
+  var thedefine = findSection(parsed, 'ExpressionStatement', 'define');
+  remapDefine(thedefine, replaceparent);
+  var outpath = path.join(__dirname, '../out/', path.basename(job, '.js') + '.json');
+  var outpathjs = path.join(__dirname, '../out/', path.basename(job, '.js') + '.js');
   console.log(outpath);
   fs.writeFileSync(outpath, JSON.stringify(parsed, null, 2));
   fs.writeFileSync(outpathjs, escodegen.generate(parsed));
