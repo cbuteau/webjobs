@@ -182,3 +182,10 @@ requirejs.config({
 
 The modify script is working.
 Now we should cleanout unused code and retest...
+
+## 12/18/2018
+
+The next demo we should build is a random generation of a bitmap.
+it should be a fractal algorithm or something...
+we should pass it back and display it on a canvas.
+using Uint8Array.
