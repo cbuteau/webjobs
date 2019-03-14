@@ -128,7 +128,7 @@ A little tired to try coding right now.
 
 State machine should be less states.
 
-10/7/2018
+## 10/7/2018
 
 Started looking at layout to tester.
 This is what we get a new index.html with...
@@ -141,7 +141,7 @@ and then a xhr job...
 
 We got layout of 4 grid...now we need to figure out how to keep divs in parent div.
 
-10/11/2018
+## 10/11/2018
 
 Got layout for tester webapp working.
 3 separate tests working.
@@ -149,11 +149,11 @@ Got layout for tester webapp working.
 Next major hurdle...thread pooling and reinitializing...
 
 
-10/13/2018
+## 10/13/2018
 
 ThreadPooling first started working...
 
-10/19/2018
+## 10/19/2018
 
 Removed resolver dependency.
 Also installed rollup() which will be our packager.
@@ -189,3 +189,21 @@ The next demo we should build is a random generation of a bitmap.
 it should be a fractal algorithm or something...
 we should pass it back and display it on a canvas.
 using Uint8Array.
+
+## 3/14/2019
+
+Integrated with codebase at work and found I needed extra configuration fields.
+
+```javascript
+TroubleMaker.setup({
+  fullPathToRequire: amdLoaderNode.src,
+  baseUrl: WebappsUtils.getWebappsBaseUrl(),
+  appPath: WebappsUtils.getWebappsBaseUrl() + 'WebJobs/'
+});
+
+// fullPathToRequire = the full path to requirejs or amdloader.
+// baseUrl: baseUrl to initialize require with in the thread.
+// appPath to where the BaseThread exists.
+
+// Sometimes baseUrl and appPath cand be 2 differnet things...sometiems the same..
+```
