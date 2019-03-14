@@ -21,8 +21,9 @@ define('src/TroubleMaker', ['src/MessageIds', 'src/WorkerStates', 'src/ThePool',
 
       var proxy = ThePool.pickup({
         jobparams: options.jobparams,
-        baseUrl: this.requirejsBaseUrl,
+        baseUrl: this.options.baseUrl,
         requirePath: this.options.fullPathToRequire,
+        appPath: this.options.appPath,
         jobPath: options.jobPath,
         timeout: options.timeout
       });

@@ -34,7 +34,7 @@ define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(Worke
 
 
     try {
-      this._worker = new Worker('BaseThread.js');
+      this._worker = new Worker(parameters.appPath + 'BaseThread.js');
       this._worker.onmessage = this.onMessage.bind(this);
       this.settings.startTime = Date.now();
       this.settings.state = WorkerStates.STARTED;

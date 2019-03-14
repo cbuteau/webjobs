@@ -8,8 +8,13 @@
     var requireScriptUrl = requireScriptNode.src;
     console.log(requireScriptUrl);
 
+    // for the demo...baseUrl and appPath (where BaseThread is located) are the same thing...
+    // when you import into your codebase and change defines ....they might be different.
+
     TroubleMaker.setup({
-      fullPathToRequire: requireScriptUrl
+      fullPathToRequire: requireScriptUrl,
+      baseUrl: '/',
+      appPath: '/'
     });
 
 
