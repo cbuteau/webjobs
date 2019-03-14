@@ -2,7 +2,7 @@
 (function() {
 
   // load modules....instantiate...
-  require(['src/TroubleMaker', 'src/BasicResolver'], function(TroubleMaker, BasicResolver) {
+  require(['src/TroubleMaker'], function(TroubleMaker) {
 
     var requireScriptNode = document.querySelector('#require');
     var requireScriptUrl = requireScriptNode.src;
