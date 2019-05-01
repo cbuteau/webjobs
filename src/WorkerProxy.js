@@ -78,7 +78,7 @@ define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(Worke
           break;
         case MessageIds.BASEINIT_ERROR:
           this.updateState(WorkerStates.COMPLETED);
-          this.reject(data.error);
+          this.reject(data.payload);
 
           break;
         case MessageIds.DISPATCH_COMPLETE:
@@ -86,7 +86,7 @@ define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(Worke
           this.updateState(WorkerStates.COMPLETED);
           break;
         case MessageIds.DISPATCH_ERROR:
-          this.reject(data.error);
+          this.reject(data.payload);
           this.updateState(WorkerStates.COMPLETED);
           break;
         default:
