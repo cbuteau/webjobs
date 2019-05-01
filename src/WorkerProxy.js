@@ -22,7 +22,7 @@ define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(Worke
     this.messages  = [];
     this.callbacks = [];
     this.settings = {};
-    this.jobparams = parameters.jobparams;
+    this.jobParams = parameters.jobParams;
     this.settings.state = WorkerStates.STARTING;
     this.settings.id = ensureId();
 
@@ -72,7 +72,7 @@ define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(Worke
           this._worker.postMessage({
             msg: MessageIds.DISPATCH,
             workerId: data.workerId,
-            params: this.jobparams
+            params: this.jobParams
           });
           this.updateState(WorkerStates.JOB);
           break;
@@ -111,7 +111,7 @@ define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(Worke
         that.resolve = resolve;
       });
 
-      this.jobparams = parameters.jobparams;
+      this.jobParams = parameters.jobParams;
       this.queue({
         msg: MessageIds.BASEINIT,
         baseUrl: parameters.baseUrl,
