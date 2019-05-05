@@ -36,8 +36,9 @@ define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(Worke
     try {
       this._worker = new Worker(parameters.appPath + 'BaseThread.js');
       this._worker.onmessage = this.onMessage.bind(this);
+      this._worker.onerror = this.onError.bind(this);
       this.settings.startTime = Date.now();
-      this.settings.state = WorkerStates.STARTED;
+      this.settings.state = WorkerStates.STARTING;
       this.queue({
         msg: MessageIds.BASEINIT,
         baseUrl: parameters.baseUrl,
@@ -50,6 +51,7 @@ define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(Worke
         setTimeout(function() {
           that.rejectReason = 'timeout';
           that.reject(new Error('Job Timeout'));
+          that.updateState(WorkerStates.COMPLETED);
         }, parameters.timeout);
       }
     } catch(e) {
@@ -93,6 +95,11 @@ define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(Worke
           console.log('Unhandled = ' + data.msg);
           break;
       }
+    },
+    onError: function(e) {
+      console.log(e);
+      this.reject(new Error('Thread Startup'));
+      this.updateState(WorkerStates.COMPLETED);
     },
     queue: function(msg) {
       this.messages.push(msg);
