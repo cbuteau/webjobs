@@ -119,3 +119,14 @@ Figure out how to output a requirejs library.
 New idea...
 Parse and regurgitate the define modules with a NEW pathing.
 Just change the define('star/my/webmodule')
+
+5/5/2019
+
+Trying to publicize and publish this library either on npm or elsewhere.
+
+Need tests and CI...
+First tests fake the threading and test the client code.
+
+Started investigating another Promise library for IE.
+Found this one...but can't load it in karma.
+https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.js

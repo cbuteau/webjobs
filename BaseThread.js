@@ -22,21 +22,24 @@ Helper.prototype = {
   translateMsg: function(msg) {
     switch (msg) {
       case 0:
-        return 'BASINIT';
+        return 'SCRIPTLOADED';
         break;
       case 1:
-        return 'BASEINIT_COMPLETE';
+        return 'BASEINIT';
         break;
       case 2:
-        return 'BASEINIT_ERROR';
+        return 'BASEINIT_COMPLETE';
         break;
       case 3:
-        return 'DISPATCH';
+        return 'BASEINIT_ERROR';
         break;
       case 4:
-        return 'DISPATCH_COMPLETE';
+        return 'DISPATCH';
         break;
       case 5:
+        return 'DISPATCH_COMPLETE';
+        break;
+      case 6:
         return 'DISPATCH_ERROR';
         break;
       default:
