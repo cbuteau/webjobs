@@ -130,3 +130,21 @@ First tests fake the threading and test the client code.
 Started investigating another Promise library for IE.
 Found this one...but can't load it in karma.
 https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.js
+
+5/7/2019
+
+Got client tests running...
+Disabled end to end tests...
+
+Get and error client working and add firefox into the mix.
+
+We should have a setup option that ensures a threadpool of X threads...
+Have them all run the TestJob and then go to sleep.
+
+```Javascript
+TroubleMaker.setup({
+  fullPathToRequire: requirejsLoadUrl,
+  baseUrl: base_url + '/base/',
+  appPath: base_url + '/base/src/../'
+  poolCount: 10
+});
