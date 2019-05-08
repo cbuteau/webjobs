@@ -25,6 +25,11 @@ if (process.argv.length < 3) {
 }
 
 var replaceparent = process.argv[2];
+var replacejobs = process.argv[3];
+
+console.log('Replace src:' + replaceparent);
+console.log('Replace jobs:' + replacejobs);
+
 
 function findSection(struct, type, name) {
   if (struct.type === type) {
@@ -76,7 +81,7 @@ function remapDefine(defineSegment, newparentpath) {
   }
 }
 
-function processFiles(start, subdir) {
+function processFiles(start, subdir, replaceParent) {
   var files = fs.readdirSync(start);
   for (var i = 0; i < files.length; i++) {
     var file = files[i];
@@ -86,10 +91,10 @@ function processFiles(start, subdir) {
     var parsed = esprima.parse(data);
     var thedefine = findSection(parsed, 'ExpressionStatement', 'define');
     if (!thedefine) {
-      console.error('define NOT found fialure' + full);
+      console.error('define NOT found failure...' + full);
       return;
     }
-    remapDefine(thedefine, replaceparent);
+    remapDefine(thedefine, replaceParent);
     var outpath = path.join(__dirname, '../out/', path.basename(file, '.js') + '.json');
     var outpathjs = path.join(__dirname, '../out/', path.basename(file, '.js') + '.js');
     console.log(outpath);
@@ -98,9 +103,9 @@ function processFiles(start, subdir) {
   }
 }
 
-processFiles('./src', '../src/');
+processFiles('./src', '../src/', replaceparent);
 
-processFiles('./jobs', '../jobs/');
+processFiles('./jobs', '../jobs/', replacejobs);
 
 return
 
