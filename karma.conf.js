@@ -16,12 +16,12 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'test-main.js',
-      'BaseThread.js',
+      //'BaseThread.js',
+      'spec/**/*.js',
+      //'spec/client_spec_fails.js',
       {pattern: '/*.js', included: false},
-      {pattern: 'src/*.js', included: false},
+      {pattern: 'src/**/*.js', included: false},
       {pattern: 'jobs/*.js', included: false},
-      {pattern: 'spec/*.js', included: false},
-      {pattern: 'spec/utils/*.js', included: false}
     ],
 
 
@@ -56,6 +56,7 @@ module.exports = function(config) {
     plugins: [
       // other plugins
       'karma-chrome-launcher',
+      'karma-firefox-launcher',
       'karma-phantomjs-launcher',
       'karma-spec-reporter',
       'karma-jasmine-html-reporter',
@@ -82,7 +83,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['Chrome', 'Firefox'],
 
 
     // Continuous Integration mode

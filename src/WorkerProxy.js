@@ -55,7 +55,7 @@ define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(Worke
         }, parameters.timeout);
       }
     } catch(e) {
-      this.settings.state = WorkerStates.COMPLETED;
+      that.updateState(WorkerStates.COMPLETED);
       this.reject(e);
     }
   }
@@ -76,7 +76,7 @@ define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(Worke
             workerId: data.workerId,
             params: this.jobParams
           });
-          this.updateState(WorkerStates.JOB);
+          this.updateState(WorkerStates.DISPATCH);
           break;
         case MessageIds.BASEINIT_ERROR:
           this.updateState(WorkerStates.COMPLETED);
