@@ -12,22 +12,22 @@
   "author": "Christopher W Buteau <cbuteau@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "requirejs": "2.3.5"
+    "requirejs": "2.3.6"
   },
   "devDependencies": {
-    "escodegen": "1.11.0",
+    "escodegen": "1.11.1",
     "esprima": "4.0.1",
-    "express": "4.16.3",
-    "jasmine": "3.1.0",
-    "jest": "23.6.0",
-    "karma": "3.0.0",
+    "express": "4.16.4",
+    "extend": "3.0.2",
+    "jasmine": "3.4.0",
+    "karma": "4.1.0",
     "karma-chrome-launcher": "2.2.0",
     "karma-firefox-launcher": "1.1.0",
-    "karma-jasmine": "1.1.2",
-    "karma-jasmine-html-reporter": "1.1.0",
+    "karma-jasmine": "2.0.1",
+    "karma-jasmine-html-reporter": "1.4.2",
     "karma-phantomjs-launcher": "1.0.4",
     "karma-requirejs": "1.1.0",
     "karma-spec-reporter": "0.0.32",
-    "uglify-js": "3.4.9"
+    "uglify-js": "3.5.11"
   }
 }

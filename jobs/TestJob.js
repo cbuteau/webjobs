@@ -1,3 +1,4 @@
+/*global define */
 'use strict';
 define('jobs/TestJob', ['src/MessageIds'], function(MessageIds) {
 
