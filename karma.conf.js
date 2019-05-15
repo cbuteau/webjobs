@@ -15,13 +15,15 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      { pattern: 'node_modules/jasmine-core/lib/jasmine-core/boot.js', included: false },
+
       'test-main.js',
-      //'BaseThread.js',
-      'spec/**/*.js',
-      //'spec/client_spec_fails.js',
-      {pattern: '/*.js', included: false},
+
       {pattern: 'src/**/*.js', included: false},
       {pattern: 'jobs/*.js', included: false},
+      //'BaseThread.js',
+      {pattern: 'spec/**/*.js', included: false},
+      //'spec/client_spec_fails.js',
     ],
 
 

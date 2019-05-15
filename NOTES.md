@@ -148,3 +148,9 @@ TroubleMaker.setup({
   appPath: base_url + '/base/src/../'
   poolCount: 10
 });
+
+5/12/2019
+
+We tried what this article said... but the tests did not run still.
+
+https://stackoverflow.com/questions/16423156/getting-requirejs-to-work-with-jasmine
