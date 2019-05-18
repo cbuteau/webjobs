@@ -140,6 +140,11 @@ define('spec/client_spec', ['src/TroubleMaker', 'src/MessageIds', 'src/ThePool']
     });
 
     describe('Positive', function() {
+      beforeEach(function() {
+        // so we do NOT reuse proxies...
+        ThePool.completed.length = 0;
+      });
+
       it ('Multi-Start', function(done) {
         var workerRequest = 0;
         spyOn(window, 'Worker').and.callFake(function() {
