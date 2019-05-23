@@ -12,5 +12,8 @@ jobs:
           name: npm install
           command: npm install
       - run:
+          name: karma cli
+          command: npm install -g karma-cli
+      - run:
           name: run test
           command: npm run test.ci

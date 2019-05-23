@@ -6,6 +6,10 @@
 + [WebWorkers](https://developer.mozilla.org/en-US/docs/Web/API/Worker)
 
 
+## Badges
+
+[![CircleCI](https://circleci.com/gh/cbuteau/webjobs.svg?style=svg)](https://circleci.com/gh/cbuteau/webjobs)
+
 ## Abstract
 
 A web worker that runs small scripts with a certain interface and wraps the work in a promise.
