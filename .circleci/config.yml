@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/
+    docker:
+      - image: circleci/node:9.0
+    environment:
+      JVM_OPTS: -Xmx3200m
+    steps:
+      - checkout
+      - run:
+          name: npm install
+          command: npm install
+      - run:
+          name: run test
+          command: node run test.ci
