@@ -148,9 +148,20 @@ TroubleMaker.setup({
   appPath: base_url + '/base/src/../'
   poolCount: 10
 });
+```
 
 5/12/2019
 
 We tried what this article said... but the tests did not run still.
 
 https://stackoverflow.com/questions/16423156/getting-requirejs-to-work-with-jasmine
+
+5/17/2019
+
+Still can't get the travis build to run and pass...
+
+Followed these hints...
+https://karma-runner.github.io/0.8/plus/Travis-CI.html
+
+Now the tests do not run on my side the karma is so old...
+Stumbled on CircleCI...maybe we should try that...
