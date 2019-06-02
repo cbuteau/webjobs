@@ -10,6 +10,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: setup-for-karma
+          command: npm set prefix=/home/circleci/npm && echo 'export PATH=$HOME/circleci/npm/bin:$PATH' >> /home/circleci/.bashrc
+      - run:
           name: karma-cli
           command: npm install -g karma-cli
       - restore_cache:
