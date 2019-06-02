@@ -3,12 +3,15 @@ jobs:
   build:
     working_directory: ~/gitsrc
     docker:
-      - image: circleci/node:9.0
+      - image: circleci/node:jessie-browsers
     environment:
       JVM_OPTS: -Xmx3200m
       NODE_ENV: false
     steps:
       - checkout
+      - run:
+          name: karma-cli
+          command: npm install -g karma-cli
       - restore_cache:
           key: dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
@@ -16,7 +19,7 @@ jobs:
           command: npm install
       - run:
           name: run test
-          command: npm run test.ci
+          command: npm run test.circle
       - save_cache:
           key: dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
