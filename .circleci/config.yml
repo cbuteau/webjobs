@@ -9,11 +9,6 @@ jobs:
       NODE_ENV: false
     steps:
       - checkout
-      - run:
-        name: versions
-        command: |
-          node --version
-          npm --version
       - restore_cache:
           key: dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
