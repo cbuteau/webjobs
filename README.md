@@ -8,7 +8,18 @@
 
 ## Badges
 
+### Circle CI Build
+
 [![CircleCI](https://circleci.com/gh/cbuteau/webjobs.svg?style=svg)](https://circleci.com/gh/cbuteau/webjobs)
+
+### npm Version
+
+[![npm version](http://img.shields.io/npm/v/webjobs.svg?style=flat)](https://npmjs.org/package/webjobs "View this project on npm")
+
+
+### npm big badge
+
+[![NPM](https://nodei.co/npm/webjobs.png)](https://nodei.co/npm/webjobs/)
 
 ## Abstract
 
@@ -69,6 +80,15 @@ But I found the tests would always timeout in playback and pass in debugging so 
 REM this runs an express server that serves a basic test website that you can run several tests.
 node scripts/server.js
 ```
+
+For you to use it in your project there is a script for modifying the define() signature of the files.
+
+```cmd
+node scripts/modufy.js YourSiteRoot/thirdparty/jobs YourSiteRoot/thirdparty/src
+```
+
+I am assuming everyone has their own toolchain for minimizing and I leave that up to you.
+You do however want to minimize the BaseThread.js separate from the other source when deploying to other projects.
 
 ## TroubleMaker
 
@@ -211,3 +231,8 @@ TroubleMaker.setup({
 
 // Sometimes baseUrl and appPath cand be 2 differnet things...sometiems the same..
 ```
+
+## 6/8/2019
+
+Updated README for more specific instructions for usage.
+Preparing for publish.
