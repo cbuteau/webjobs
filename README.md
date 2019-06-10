@@ -236,3 +236,7 @@ TroubleMaker.setup({
 
 Updated README for more specific instructions for usage.
 Preparing for publish.
+
+### 6/10/2019
+
+Attached keywords to package.json at a colleagues suggestion.
