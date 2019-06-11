@@ -73,8 +73,8 @@ define('SomeProcessingModule',
 
 ## Usage
 
-In the beginiing I was going to write automated tests that excercised this library.
-But I found the tests would always timeout in playback and pass in debugging so I moved to a demo webstie to debug the kinks and be able to add features.
+In the beginning I was going to write automated tests that excercised this library.
+But I found the tests would always timeout in playback and pass in debugging so I moved to a demo website to debug the kinks and be able to add features.
 
 ```cmd
 REM this runs an express server that serves a basic test website that you can run several tests.
