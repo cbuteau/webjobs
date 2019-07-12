@@ -12,7 +12,11 @@
   },
   "author": "Christopher W Buteau <cbuteau@gmail.com>",
   "license": "MIT",
-  "keywords": ["threading", "webworker", "promise"],
+  "keywords": [
+    "threading",
+    "webworker",
+    "promise"
+  ],
   "dependencies": {
     "requirejs": "2.3.6"
   },
