@@ -14,6 +14,11 @@ define('jobs/RecursiveJob' ,[], function() {
   RecursiveJob.prototype = {
     dispatch: function(workerId, params) {
       var fact = factorial(params.n);
+      return {
+        workerId: workerId,
+        payload: fact
+      };
+      
       postMessage({
         msg: 5,
         workerId: workerId,

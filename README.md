@@ -31,6 +31,59 @@ So for some reason they named threads web workers in the browser so I have named
 
 So the idea is a library where you learn to kick small jobs to threading and then they notify you when it is done.
 
+
+## HOw it works.
+
+WHat WebJobs(tm) does is load a thread and then pass it tthe url for the require library.
+It loads require and then the client sends it a job require path.
+
+A job is a simple object wutg has a dispatch method.
+
+```Javascript
+define('jobs/TestJob', ['src/MessageIds'], function(MessageIds) {
+
+  /*
+   * Just create a regular vanilla javascript class in requirejs format.
+   *
+   * A constructor
+   * A prototype decalration with the method dispatch.
+   * return the constructor at the end.
+   *
+   * Within dispatch you can call other styatic or instamce functions
+   * but you have 2 maain exits..
+   *
+   * postMessage({
+   *   msg: MessageIds.DISPATCH_COMPLETE,
+   *   workerId: workerId,
+   *   payload: <the javascript object or variable to result.
+   * });
+   *
+   * OR
+   *
+   * postMessage({
+   *   msg: MessageIds.DISPATCH_ERROR,
+   *   workerId: workerId,
+   *   payload: <I usually copy the stack and message of the error and send that.>
+   * });
+   *
+   */
+
+
+  function TestJob() {}
+
+  TestJob.prototype = {
+    dispatch: function(workerId, params) {
+      return {
+        payload: 40;
+      }
+    }
+  }
+
+  return TestJob;
+});
+```
+
+
 ## Things Learned
 
 It is very import to set rules about the messages passed back and forth.
@@ -240,3 +293,10 @@ Preparing for publish.
 ### 6/10/2019
 
 Attached keywords to package.json at a colleagues suggestion.
+
+
+### 9/24/2019
+
+Figuring out coverage.
+Reraching some of the internals.
+MesageIDs is not loading....why NOT.
