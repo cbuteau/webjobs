@@ -164,11 +164,17 @@ onmessage = function(e) {
     case 4:
       // Dispatch work data to job...
       try {
-        var result = self.dispatcher.dispatch(data.workerId, data.params);
-        reply.dispatch(result);
+        var result = self.dispatcher.dispatch(data.workerId, data.params, function(result) {
+          if (result.isError) {
+              reply.dispatch(result, true);
+          } else {
+              reply.dispatch(result);
+          }
+        });
+        //reply.dispatch(result);
       } catch(err) {
-        console.errror(err);
-        reply.dispatch({ error: convertError(err)});
+        console.error(err);
+        reply.dispatch({ error: convertError(err)}, true);
         // postMessage({
         //   msg: 6,
         //   error: self.helper.convertError(err)

@@ -10,21 +10,18 @@ define('jobs/TestJob', ['src/MessageIds'], function(MessageIds) {
    * return the constructor at the end.
    *
    * Within dispatch you can call other styatic or instamce functions
-   * but you have 2 maain exits..
+   * but you have 2 main exits..
    *
-   * postMessage({
-   *   msg: MessageIds.DISPATCH_COMPLETE,
-   *   workerId: workerId,
-   *   payload: <the javascript object or variable to result.
-   * });
+   * callback({
+   *   isError: true,
+   *   payload: e
+   * })
    *
    * OR
    *
-   * postMessage({
-   *   msg: MessageIds.DISPATCH_ERROR,
-   *   workerId: workerId,
-   *   payload: <I usually copy the stack and message of the error and send that.>
-   * });
+   * callback({
+   *   payload: result
+   * })
    *
    */
 
@@ -32,10 +29,8 @@ define('jobs/TestJob', ['src/MessageIds'], function(MessageIds) {
   function TestJob() {}
 
   TestJob.prototype = {
-    dispatch: function(workerId, params) {
-      postMessage({
-        msg: MessageIds.DISPATCH_COMPLETE,
-        workerId: workerId,
+    dispatch: function(workerId, params, callback) {
+      callback({
         payload: 42
       });
     }

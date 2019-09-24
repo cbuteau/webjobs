@@ -37,7 +37,7 @@ define('jobs/GenericWebServiceJob', [], function() {
   function GenericWebServiceJob() {}
 
   GenericWebServiceJob.prototype = {
-    dispatch: function(workerId, params) {
+    dispatch: function(workerId, params, callback) {
       /* IE does not like single line comments.
       try timezone api.
       http://api.timezonedb.com/v2.1/get-time-zone
@@ -56,16 +56,15 @@ define('jobs/GenericWebServiceJob', [], function() {
 
       'http://api.timezonedb.com/v2.1/get-time-zone?key=YLT4O2POSKCD&format=json&by=zone&zone=America/New_York'
       */
-      request(params.url, params.verb, function(data) {
-        postMessage({
-          msg: 4,
+      request(params.url, params.verb, null, function(data) {
+        callback({
           workerId: workerId,
           payload: data
         });
       }, function(err) {
-        postMessage({
-          msg: 5,
+        callback({
           workerId: workerId,
+          isError: true,
           payload: err
         });
       });

@@ -5,8 +5,18 @@ define('jobs/SimpleJob', ['src/DispatcherHelper'], function(DispatcherHelper) {
 
 
   SimpleJob.prototype = {
-    dispatch: function(workerId, parameters) {
-      DispatcherHelper.execute(workerId, parameters, this._work);
+    dispatch: function(workerId, parameters, callback) {
+      try {
+        var result = this._work(workerId, parameters);
+        callback({
+          payload: result
+        });
+      } catch (e) {
+        callback({
+          isError: true,
+          payload: e
+        });
+      }
     },
     dispatch_old: function(workerId, parameters) {
 
