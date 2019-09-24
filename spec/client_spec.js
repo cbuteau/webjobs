@@ -215,6 +215,7 @@ define('spec/client_spec', ['src/TroubleMaker', 'src/MessageIds', 'src/ThePool']
 
       it ('Exception', function(done) {
         spyOn(window, 'Worker').and.callFake(function() {
+          window.Worker.and.callThrough();
           throw new Error('You passed a crap parameter');
         });
 
@@ -239,6 +240,7 @@ define('spec/client_spec', ['src/TroubleMaker', 'src/MessageIds', 'src/ThePool']
       it ('BASEINIT_ERROR', function(done) {
 
         spyOn(window, 'Worker').and.callFake(function() {
+          window.Worker.and.callThrough();
           return new FakeWorkerBaseInitError();
         });
 

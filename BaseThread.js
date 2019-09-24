@@ -128,17 +128,21 @@ onmessage = function(e) {
           try {
             reply = Reply;
             self.dispatcher = new JobDispatcher();
-            postMessage({
-              msg: 2,
+            reply.init({
               workerId: data.workerId,
               comment: 'Initialized dispatcher'
             });
+            // postMessage({
+            //   workerId: data.workerId,
+            //   comment: 'Initialized dispatcher'
+            //   msg: 2,
+            // });
           } catch (errDispatcher) {
             postMessage({
               msg: 3,
               workerId: data.workerId,
               comment: 'Instantiation of dispatcher failed',
-              error: self.helper.convertError(errDispatcher)
+              error: convertError(errDispatcher)
             });
           }
 
@@ -148,7 +152,7 @@ onmessage = function(e) {
             msg: 3,
             workerId: data.workerId,
             comment: 'Require of Job failed',
-            error: self.helper.convertError(requireerr.originalError)
+            error: convertError(requireerr.originalError)
           });
 
         });
@@ -157,7 +161,7 @@ onmessage = function(e) {
           msg: 2,
           workerId: data.workerId,
           comment: 'Require would not import.',
-          error: self.helper.convertError(err)
+          error: convertError(err)
         });
       }
       break;
@@ -166,6 +170,9 @@ onmessage = function(e) {
       try {
         var result = self.dispatcher.dispatch(data.workerId, data.params, function(result) {
           if (result.isError) {
+            if (result.payload instanceof Error) {
+              result.payload = convertError(result.payload);
+            }
               reply.dispatch(result, true);
           } else {
               reply.dispatch(result);

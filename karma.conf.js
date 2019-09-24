@@ -18,8 +18,10 @@ module.exports = function(config) {
       //'node_modules/jasmine-core/lib/jasmine-core/boot.js',
 
       'test-main.js',
+      'BaseThread.js',
 
       {pattern: 'src/**/*.js', included: false},
+      {pattern: 'internals/**/*.js', included: false},
       {pattern: 'jobs/*.js', included: false},
       //'BaseThread.js',
       {pattern: 'spec/**/*.js', included: false},
