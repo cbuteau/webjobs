@@ -165,3 +165,8 @@ https://karma-runner.github.io/0.8/plus/Travis-CI.html
 
 Now the tests do not run on my side the karma is so old...
 Stumbled on CircleCI...maybe we should try that...
+
+9/24/2019
+\
+New idea.
+Get coverage working fro this project so we can port to DS.
