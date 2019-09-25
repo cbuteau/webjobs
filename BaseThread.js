@@ -46,56 +46,6 @@ function translateMsg(msg) {
   }
 }
 
-
-function Helper() {
-}
-
-Helper.prototype = {
-  convertError: function(err) {
-
-    var converted = {
-      message: err.message,
-      stack: err.stack
-    };
-
-    if (err.code) {
-      converted.code = err.code;
-    }
-
-    return converted;
-  },
-  translateMsg: function(msg) {
-    switch (msg) {
-      case 0:
-        return 'SCRIPTLOADED';
-        break;
-      case 1:
-        return 'BASEINIT';
-        break;
-      case 2:
-        return 'BASEINIT_COMPLETE';
-        break;
-      case 3:
-        return 'BASEINIT_ERROR';
-        break;
-      case 4:
-        return 'DISPATCH';
-        break;
-      case 5:
-        return 'DISPATCH_COMPLETE';
-        break;
-      case 6:
-        return 'DISPATCH_ERROR';
-        break;
-      default:
-        return 'OMG_UNDEFINED';
-        break;
-    }
-  }
-};
-
-self.helper = new Helper();
-
 var reply;
 // </editor-fold>
 
@@ -104,7 +54,7 @@ onmessage = function(e) {
 
   var data = e.data;
 
-  console.log('msg:' + data.msg + ' translated:' + self.helper.translateMsg(data.msg));
+  console.log('msg:' + data.msg + ' translated:' + translateMsg(data.msg));
 
   switch (data.msg) {
     case 1:
