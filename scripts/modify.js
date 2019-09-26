@@ -19,7 +19,7 @@ to
 
 */
 
-if (process.argv.length < 3) {
+if (process.argv.length < 5) {
   console.log('You need a parent path for the define paths');
   return;
 }
@@ -27,8 +27,11 @@ if (process.argv.length < 3) {
 var replaceparent = process.argv[2];
 var replacejobs = process.argv[3];
 
+var replaceinternals = process.argv[4];
+
 console.log('Replace src:' + replaceparent);
 console.log('Replace jobs:' + replacejobs);
+console.log('Replace internals:' + replaceinternals);
 
 
 function findSection(struct, type, name) {
@@ -103,41 +106,10 @@ function processFiles(start, subdir, replaceParent) {
   }
 }
 
+fs.mkdirSync('./out');
+
 processFiles('./src', '../src/', replaceparent);
 
 processFiles('./jobs', '../jobs/', replacejobs);
 
-return
-
-
-var srcfiles = fs.readdirSync('./src');
-for (var i = 0; i < srcfiles.length; i++) {
-  var src = srcfiles[i];
-  var full= path.join(__dirname, '../src/', src);
-  console.log(full);
-  var data = fs.readFileSync(full, 'utf8');
-  var parsed = esprima.parse(data);
-  var thedefine = findSection(parsed, 'ExpressionStatement', 'define');
-  remapDefine(thedefine, replaceparent);
-  var outpath = path.join(__dirname, '../out/', path.basename(src, '.js') + '.json');
-  var outpathjs = path.join(__dirname, '../out/', path.basename(src, '.js') + '.js');
-  console.log(outpath);
-  fs.writeFileSync(outpath, JSON.stringify(parsed, null, 2));
-  fs.writeFileSync(outpathjs, escodegen.generate(parsed));
-}
-
-var jobFiles = fs.readdirSync('./jobs');
-for (var j = 0; j < jobFiles.length; j++) {
-  var job = jobFiles[j];
-  var full= path.join(__dirname, '../jobs/', src);
-  console.log(full);
-  var data = fs.readFileSync(full, 'utf8');
-  var parsed = esprima.parse(data);
-  var thedefine = findSection(parsed, 'ExpressionStatement', 'define');
-  remapDefine(thedefine, replaceparent);
-  var outpath = path.join(__dirname, '../out/', path.basename(job, '.js') + '.json');
-  var outpathjs = path.join(__dirname, '../out/', path.basename(job, '.js') + '.js');
-  console.log(outpath);
-  fs.writeFileSync(outpath, JSON.stringify(parsed, null, 2));
-  fs.writeFileSync(outpathjs, escodegen.generate(parsed));
-}
+processFiles('./internals', '../internals/', replaceinternals);
