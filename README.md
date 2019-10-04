@@ -8,6 +8,10 @@
 
 ## Badges
 
+### Coveralls
+
+[![Coverage Status](https://coveralls.io/repos/github/cbuteau/webjobs/badge.svg?branch=master)](https://coveralls.io/github/cbuteau/webjobs?branch=master)
+
 ### Circle CI Build
 
 [![CircleCI](https://circleci.com/gh/cbuteau/webjobs.svg?style=svg)](https://circleci.com/gh/cbuteau/webjobs)
