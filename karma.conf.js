@@ -33,11 +33,15 @@ module.exports = function(config) {
     exclude: [
     ],
 
+    coverageReporter: {
+      type : 'lcov',
+      dir : 'coverage/'
+    },
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-    },
+    preprocessors:  { '*.js': ['coverage'] },
+
 
 
     // test results reporter to use
@@ -45,7 +49,7 @@ module.exports = function(config) {
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     //reporters: ['progress', 'spec', 'kjhtml'],
 
-    reporters: ['progress', 'spec'],
+    reporters: ['progress', 'spec', 'coverage', 'coveralls'],
 
 
     specReporter: {
