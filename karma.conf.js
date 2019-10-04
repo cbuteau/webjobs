@@ -63,17 +63,19 @@ module.exports = function(config) {
     },
 
     // add to plugins
-    plugins: [
-      // other plugins
-      'karma-chrome-launcher',
-      'karma-firefox-launcher',
-      'karma-phantomjs-launcher',
-      'karma-spec-reporter',
-      'karma-jasmine-html-reporter',
-      'karma-requirejs',
-      'karma-jasmine',
-      'karma-coverage'
-    ],
+    // Trying to let karma do it itself.
+
+    // plugins: [
+    //   // other plugins
+    //   'karma-chrome-launcher',
+    //   'karma-firefox-launcher',
+    //   'karma-phantomjs-launcher',
+    //   'karma-spec-reporter',
+    //   'karma-jasmine-html-reporter',
+    //   'karma-requirejs',
+    //   'karma-jasmine',
+    //   'karma-coverage'
+    // ],
 
     // web server port
     port: 9876,
