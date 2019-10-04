@@ -262,6 +262,18 @@ define('spec/client_spec', ['src/TroubleMaker', 'src/MessageIds', 'src/ThePool']
       });
     });
 
+    it ('start when not setup', function() {
+      TroubleMaker.isSetup = undefined;
+      expect(function() {
+        TroubleMaker.start({
+          jobPath: 'src/SimpleJob.js',
+          jobParams: {
+            param1: 10,
+            param2: 20
+          }
+        });
+      }).toThrow();
+    });
 
   });
 
