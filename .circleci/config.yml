@@ -7,6 +7,7 @@ jobs:
     environment:
       JVM_OPTS: -Xmx3200m
       NODE_ENV: false
+      COVERALLS_REPO_TOKEN: MmGHAuIwzxRXUNjxFFUjPtEph5sLP6FGn
     steps:
       - checkout
       - run:
@@ -23,6 +24,8 @@ jobs:
       - run:
           name: run test
           command: npm run test.circle
+      - store_artifacts:
+          path: coverage          
       - save_cache:
           key: dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
