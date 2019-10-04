@@ -71,7 +71,8 @@ module.exports = function(config) {
       'karma-spec-reporter',
       'karma-jasmine-html-reporter',
       'karma-requirejs',
-      'karma-jasmine'
+      'karma-jasmine',
+      'karma-coverage'
     ],
 
     // web server port
