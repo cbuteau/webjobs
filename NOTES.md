@@ -167,6 +167,16 @@ Now the tests do not run on my side the karma is so old...
 Stumbled on CircleCI...maybe we should try that...
 
 9/24/2019
-\
+
 New idea.
 Get coverage working fro this project so we can port to DS.
+
+
+10/8/2019
+
+Got some coverage working but it is hard to debug our tests.
+Got HTML exporting to evaluate on desktop.
+Trying to make it so we run one test but it won't
+https://stackoverflow.com/questions/29150998/karma-running-a-single-test-file-from-command-line/29151264
+
+We should rewrite the export script...so it exports to different dirs.

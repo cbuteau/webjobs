@@ -34,15 +34,20 @@ module.exports = function(config) {
     ],
 
     coverageReporter: {
-      type : 'lcov',
-      dir : 'coverage/'
+      dir: 'coverage/',
+      reporters: [
+        { type: 'html', subdir: 'report-html' },
+        { type: 'lcov' },
+        { type: 'text-summary', subdir: '.', file: 'text-summary.txt' },
+      ]
     },
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors:  {
+      //'internals/**/*.js': ['coverage'],
       'src/**/*.js': ['coverage'],
-      'BaseThread.js': ['coverage']
+    //  '**/BaseThread.js': ['coverage']
     },
 
 

@@ -205,6 +205,24 @@ define('spec/client_spec', ['src/TroubleMaker', 'src/MessageIds', 'src/ThePool']
         });
       });
 
+      it ('timeout', function(done) {
+        debugger;
+        var prom1 = TroubleMaker.start({
+          jobPath: 'src/SimpleJob.js',
+          jobParams: {
+            param1: 10,
+            param2: 20
+          },
+          timeout: 1
+        });
+
+        prom1.catch(function(err) {
+          console.error(err);
+          done();
+        });
+
+      });
+
     });
 
     describe('Negative', function() {

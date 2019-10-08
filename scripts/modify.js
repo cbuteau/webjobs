@@ -34,6 +34,12 @@ console.log('Replace jobs:' + replacejobs);
 console.log('Replace internals:' + replaceinternals);
 
 
+function ensureDirectory(directory) {
+  if (!fs.existsSync(directory)){
+      fs.mkdirSync(directory);
+  }
+}
+
 function findSection(struct, type, name) {
   if (struct.type === type) {
     if (struct.expression && struct.expression.callee && struct.expression.callee.name === name) {
@@ -84,7 +90,7 @@ function remapDefine(defineSegment, newparentpath) {
   }
 }
 
-function processFiles(start, subdir, replaceParent) {
+function processFiles(start, subdir, outsubdir, replaceParent) {
   var files = fs.readdirSync(start);
   for (var i = 0; i < files.length; i++) {
     var file = files[i];
@@ -98,18 +104,22 @@ function processFiles(start, subdir, replaceParent) {
       return;
     }
     remapDefine(thedefine, replaceParent);
-    var outpath = path.join(__dirname, '../out/', path.basename(file, '.js') + '.json');
-    var outpathjs = path.join(__dirname, '../out/', path.basename(file, '.js') + '.js');
+    var outpath = path.join(__dirname, '../out/', outsubdir, path.basename(file, '.js') + '.json');
+    var outpathjs = path.join(__dirname, '../out/', outsubdir, path.basename(file, '.js') + '.js');
+    var outdir = path.dirname(outpath);
+    var outjsdir = path.dirname(outpathjs);
+    ensureDirectory(outdir);
+    ensureDirectory(outjsdir);
     console.log(outpath);
     fs.writeFileSync(outpath, JSON.stringify(parsed, null, 2));
     fs.writeFileSync(outpathjs, escodegen.generate(parsed));
   }
 }
 
-fs.mkdirSync('./out');
+ensureDirectory('./out');
 
-processFiles('./src', '../src/', replaceparent);
+processFiles('./src', '../src/', 'src', replaceparent);
 
-processFiles('./jobs', '../jobs/', replacejobs);
+processFiles('./jobs', '../jobs/', 'jobs', replacejobs);
 
-processFiles('./internals', '../internals/', replaceinternals);
+processFiles('./internals', '../internals/', 'internals', replaceinternals);
