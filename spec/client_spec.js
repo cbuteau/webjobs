@@ -7,6 +7,17 @@ define('spec/client_spec', ['src/TroubleMaker', 'src/MessageIds', 'src/ThePool']
   // <editor-fold>
 
 
+  function TimeoutWorker(options) {
+    this.options = options;
+  }
+
+  TimeoutWorker.prototype = {
+    postMessage: function(params) {
+      //drop it we want a timeout.
+    }
+  }
+
+
   function FakeWorker(options) {
     var that = this;
     this.options = options;
@@ -206,7 +217,13 @@ define('spec/client_spec', ['src/TroubleMaker', 'src/MessageIds', 'src/ThePool']
       });
 
       it ('timeout', function(done) {
-        debugger;
+
+        spyOn(window, 'Worker').and.callFake(function() {
+          var opts = {};
+          return new TimeoutWorker(opts);
+        });
+
+
         var prom1 = TroubleMaker.start({
           jobPath: 'src/SimpleJob.js',
           jobParams: {
