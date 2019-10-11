@@ -81,6 +81,26 @@ define('spec/integration_test', ['src/TroubleMaker',  'src/ThePool'], function(T
 
     });
 
+    fit ('TestJob timeout', function(done) {
+      // cover ensureId
+      spyOn(Math, 'random').and.returnValues(0.1, 0.1, 0.2, 0.3, 0.4);
+      var prom = TroubleMaker.start({
+        jobPath: 'jobs/TestJob',
+        jobParams: {
+          param1: 10,
+          param2: 20
+        },
+        timeout: 1
+      });
+
+      prom.catch(function(err) {
+        console.error(err);
+        done();
+      });
+
+    });
+
+
   });
 
 });
