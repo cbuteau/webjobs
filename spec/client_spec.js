@@ -15,7 +15,22 @@ define('spec/client_spec', ['src/TroubleMaker', 'src/MessageIds', 'src/ThePool']
     postMessage: function(params) {
       //drop it we want a timeout.
     }
+  };
+
+  function ErrorWorker(options) {
+    this.options = options;
   }
+
+  ErrorWorker.prototype = {
+    postMessage: function(params) {
+      var that = this;
+      if (this.onError) {
+        setTimeout(function() {
+          that.onError('yo');
+        }, 50);
+      }
+    }
+  };
 
 
   function FakeWorker(options) {
@@ -157,6 +172,7 @@ define('spec/client_spec', ['src/TroubleMaker', 'src/MessageIds', 'src/ThePool']
       });
 
       it ('Multi-Start', function(done) {
+
         var workerRequest = 0;
         spyOn(window, 'Worker').and.callFake(function() {
           workerRequest++;
@@ -246,6 +262,21 @@ define('spec/client_spec', ['src/TroubleMaker', 'src/MessageIds', 'src/ThePool']
       beforeEach(function() {
         // so we do NOT reuse proxies...
         ThePool.completed.length = 0;
+      });
+
+      it ('onError event', function(done) {
+        spyOn(window, 'Worker').and.callFake(function() {
+          var opts = {};
+          return new ErrorWorker(opts);
+        });
+
+        var prom1 = TroubleMaker.start({
+          jobPath: 'src/SimpleJob.js',
+          jobParams: {
+            param1: 10,
+            param2: 20
+          }
+        });
       });
 
       it ('Exception', function(done) {

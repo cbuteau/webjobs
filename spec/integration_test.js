@@ -46,7 +46,26 @@ define('spec/integration_test', ['src/TroubleMaker',  'src/ThePool'], function(T
     });
 
     fit ('TestJob', function(done) {
+      // cover ensureId
+      spyOn(Math, 'random').and.returnValues(0.1, 0.1, 0.2, 0.3, 0.4);
+      var prom = TroubleMaker.start({
+        jobPath: 'jobs/TestJob',
+        jobParams: {
+          param1: 10,
+          param2: 20
+        }
+      });
 
+      prom.then(function(result) {
+        expect(result).toBe(42);
+        done();
+      });
+
+    });
+
+    fit ('TestJob2', function(done) {
+      // cover ensureId
+      spyOn(Math, 'random').and.returnValues(0.1, 0.1, 0.2, 0.3, 0.4);
       var prom = TroubleMaker.start({
         jobPath: 'jobs/TestJob',
         jobParams: {
