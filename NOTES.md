@@ -180,3 +180,7 @@ Trying to make it so we run one test but it won't
 https://stackoverflow.com/questions/29150998/karma-running-a-single-test-file-from-command-line/29151264
 
 We should rewrite the export script...so it exports to different dirs.
+
+10/22/2019
+
+New idea...add a progress message to the message set.
