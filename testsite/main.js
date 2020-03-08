@@ -1,8 +1,34 @@
 'use strict';
 (function() {
 
+
+  function PopulateZones(domPulldown, result) {
+    this.domPulldown = domPulldown;
+    this.result = result;
+  }
+
+  PopulateZones.prototype = {
+    execute: function(parts) {
+      var zoneNames = [];
+      for (var i = 0; i < this.result.zones.length; i++) {
+        var currentZone = this.result.zones[i];
+        zoneNames.push(currentZone.zoneName);
+      }
+      zoneNames.sort(function(a, b) {
+        return a.localeCompare(b, 'en');
+      });
+
+      for (var j = 0; j < zoneNames.length; j++) {
+        var opt = document.createElement('option');
+        opt.textContent = zoneNames[j];
+        opt.value = zoneNames[j];
+        this.domPulldown.appendChild(opt);
+      }
+      parts.resolve();
+    }
+  };
   // load modules....instantiate...
-  require(['src/TroubleMaker'], function(TroubleMaker) {
+  require(['src/TroubleMaker', 'src/WorkQueue'], function(TroubleMaker, WorkQueue) {
 
     var requireScriptNode = document.querySelector('#require');
     var requireScriptUrl = requireScriptNode.src;
@@ -107,21 +133,22 @@
 
       prom.then(function(result) {
         console.log(result);
-        var zoneNames = [];
-        for (var i = 0; i < result.zones.length; i++) {
-          var currentZone = result.zones[i];
-          zoneNames.push(currentZone.zoneName);
-        }
-        zoneNames.sort(function(a, b) {
-          return a.localeCompare(b, 'en');
-        });
-
-        for (var j = 0; j < zoneNames.length; j++) {
-          var opt = document.createElement('option');
-          opt.textContent = zoneNames[j];
-          opt.value = zoneNames[j];
-          multiZoneList.appendChild(opt);
-        }
+        WorkQueue.queue(new PopulateZones(multiZoneList, result));
+        // var zoneNames = [];
+        // for (var i = 0; i < result.zones.length; i++) {
+        //   var currentZone = result.zones[i];
+        //   zoneNames.push(currentZone.zoneName);
+        // }
+        // zoneNames.sort(function(a, b) {
+        //   return a.localeCompare(b, 'en');
+        // });
+        //
+        // for (var j = 0; j < zoneNames.length; j++) {
+        //   var opt = document.createElement('option');
+        //   opt.textContent = zoneNames[j];
+        //   opt.value = zoneNames[j];
+        //   multiZoneList.appendChild(opt);
+        // }
 
         //wsresultDom.innerHTML = JSON.stringify(result, null, '  '); // result.toString();
       }).catch(function(e) {
