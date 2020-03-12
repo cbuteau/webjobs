@@ -1,3 +1,4 @@
+'use strict';
 define('src/WorkQueue', [], function() {
 
   function PromiseParts() {
