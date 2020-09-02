@@ -39,6 +39,7 @@ define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(Worke
       this._worker.onerror = this.onError.bind(this);
       this.settings.startTime = Date.now();
       this.settings.state = WorkerStates.STARTING;
+      this.settings.infoCallback = parameters.infoCallback;
       this.queue({
         msg: MessageIds.BASEINIT,
         baseUrl: parameters.baseUrl,
@@ -91,6 +92,16 @@ define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(Worke
           this.reject(data.payload);
           this.updateState(WorkerStates.COMPLETED);
           break;
+        case MessageIds.DISPATCH_INFO:
+           if (this.settings.infoCallback) {
+             try {
+               this.settings.infoCallback(data);
+             } catch (e) {
+               console.error(e);
+               console.error('Your infoCallback keeps exceptioning...fix it');
+             }
+           }
+          break;
         default:
           console.log('Unhandled = ' + data.msg);
           break;
@@ -117,6 +128,8 @@ define('src/WorkerProxy', ['src/WorkerStates', 'src/MessageIds'], function(Worke
         that.reject = reject;
         that.resolve = resolve;
       });
+
+      this.settings.infoCallback = parameters.infoCallback;
 
       this.jobParams = parameters.jobParams;
       this.queue({

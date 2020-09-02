@@ -9,7 +9,8 @@ define('src/MessageIds', [], function () {
     BASEINIT_ERROR: 3,
     DISPATCH: 4,
     DISPATCH_COMPLETE: 5,
-    DISPATCH_ERROR: 6
+    DISPATCH_ERROR: 6,
+    DISPATCH_INFO: 7
   };
 
   Object.freeze(MessageIds);

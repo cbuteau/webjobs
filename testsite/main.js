@@ -120,6 +120,11 @@
     var multiGetButton = document.querySelector('#multi_getButton');
     var multiGetResult = document.querySelector('#multi_result');
 
+    var infoButton = document.querySelector('#wsinfo_execButton');
+    var infoResult = document.querySelector('#wsinfo_result');
+    var infoStatus = document.querySelector('#wsinfo_status');
+    // wsinfo_status
+
     // perform list then perrform get on selected from list.
     multiExecButton.addEventListener('click', function(e) {
       var url = 'http://api.timezonedb.com/v2.1/list-time-zone?key=' + multiApiParam.value + '&format=json';
@@ -168,12 +173,32 @@
       });
 
       prom.then(function(result) {
-        multiGetResult.innerHTML = JSON.stringify(result, null, '  '); // result.toString();
+        wsresultDom.innerHTML = JSON.stringify(result, null, '  '); // result.toString();
       }).catch(function(e) {
         console.error(e);
       });
     });
 
+    infoButton.addEventListener('click', function(e) {
+      var url = 'http://api.timezonedb.com/v2.1/get-time-zone?key=' + wsApiParam.value + '&format=json&by=zone&zone=America/New_York';
+      var prom = TroubleMaker.start({
+        jobPath: 'jobs/WebServiceJobWithInfo',
+        jobParams: {
+          url: url,
+          verb: 'GET'
+        },
+        infoCallback: function(data) {
+          infoStatus.innerHTML = JSON.stringify(data, null, '   ');
+        }
+      });
+
+      prom.then(function(result) {
+        infoResult.innerHTML = JSON.stringify(result, null, '  '); // result.toString();
+      }).catch(function(e) {
+        console.error(e);
+      });
+
+    });
 
 
   });

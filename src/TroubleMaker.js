@@ -30,6 +30,7 @@ define('src/TroubleMaker', ['src/MessageIds', 'src/WorkerStates', 'src/ThePool']
         requirePath: this.options.fullPathToRequire,
         appPath: this.options.appPath,
         jobPath: options.jobPath,
+        infoCallback: options.infoCallback,
         timeout: options.timeout
       });
 
