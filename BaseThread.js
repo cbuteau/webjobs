@@ -74,19 +74,18 @@ onmessage = function(e) {
         require({
           baseUrl: data.baseUrl,
           waitSeconds: 20
-        }, [data.jobPath, 'internals/Reply'], function(JobDispatcher, Reply) {
+        }, [data.jobPath], function(JobDispatcher) {
           try {
-            reply = Reply;
             self.dispatcher = new JobDispatcher();
-            reply.init({
-              workerId: data.workerId,
-              comment: 'Initialized dispatcher'
-            });
-            // postMessage({
+            // reply.init({
             //   workerId: data.workerId,
             //   comment: 'Initialized dispatcher'
-            //   msg: 2,
             // });
+            postMessage({
+              workerId: data.workerId,
+              comment: 'Initialized dispatcher',
+              msg: 2
+            });
           } catch (errDispatcher) {
             postMessage({
               msg: 3,
@@ -123,19 +122,28 @@ onmessage = function(e) {
             if (result.payload instanceof Error) {
               result.payload = convertError(result.payload);
             }
-              reply.dispatch(result, true);
+              //reply.dispatch(result, true);
+
+              result.msg = 6;
+              postMessage(result);
           } else {
-              reply.dispatch(result);
+              //reply.dispatch(result);
+              result.msg = 5;
+              postMessage(result);
+              // postMessage({
+              //   msg: 6,
+              //   error: self.helper.convertError(err)
+              // });
           }
         });
         //reply.dispatch(result);
       } catch(err) {
         console.error(err);
-        reply.dispatch({ error: convertError(err)}, true);
-        // postMessage({
-        //   msg: 6,
-        //   error: self.helper.convertError(err)
-        // });
+        //reply.dispatch({ error: convertError(err)}, true);
+        postMessage({
+          msg: 6,
+          payload: convertError(err)
+        });
       }
       break;
     default:
