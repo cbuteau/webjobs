@@ -23,15 +23,15 @@ define('spec/work_queue', ['src/WorkQueue'], function(WorkQueue) {
     }
   };
 
-  describe('Test WorkQueue...', function() {
+  fdescribe('Test WorkQueue...', function() {
 
-    it ('Success', function() {
+    fit ('Success', function() {
       return new Promise(function(resolve, reject) {
         WorkQueue.queue(new SuccessWork()).then(resolve);
       })
     });
 
-    it ('Failure', function() {
+    fit ('Failure', function() {
       return new Promise(function(resolve, reject) {
         WorkQueue.queue(new FailureWork()).catch(resolve);
       })
