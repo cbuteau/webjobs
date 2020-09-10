@@ -6,3 +6,5 @@ coverage/
 
 # Instrument by istanbul
 instrument/
+
+out/
