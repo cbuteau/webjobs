@@ -18,16 +18,21 @@ define('src/WorkQueue', [], function() {
 
   WorkQueue.prototype = {
     queue: function(workObject) {
-      this.work.push(workObject);
+      var parts = new PromiseParts();
+      var workContext = {
+          work: workObject,
+          parts: parts
+      };
+      this.work.push(workContext);
       this._start();
+      return parts._promise;
     },
     _raf: function() {
       var counter = 0;
 
       while (this.work.length) {
-        var work = this.work.pop();
-        var parts = new PromiseParts();
-        work.execute.call(work, parts);
+        var workContext = this.work.pop();
+        workContext.work.execute.call(workContext.work, workContext.parts);
         counter++;
       }
 
