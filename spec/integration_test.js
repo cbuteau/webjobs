@@ -1,4 +1,4 @@
-define('spec/integration_test', ['src/TroubleMaker',  'src/ThePool', 'src/WorkQueue'], function(TroubleMaker, ThePool, WorkQueue) {
+define('spec/integration_test', ['src/TroubleMaker',  'src/ThePool', 'src/WorkQueue', 'src/Boss'], function(TroubleMaker, ThePool, WorkQueue, Boss) {
 
   fdescribe('Full back and forth', function() {
 
@@ -140,5 +140,43 @@ define('spec/integration_test', ['src/TroubleMaker',  'src/ThePool', 'src/WorkQu
       })
     });
 
+  });
+
+  function PrepData(options) {
+    this.options = options;
+  }
+
+  PrepData.prototype = {
+    execute: function(parts) {
+      parts.resolve({
+        param1: 10,
+        param2: 20
+      })
+    }
+  }
+
+  function DispatchToUI(options){
+    this.options = options;
+  }
+
+  DispatchToUI.prototype = {
+    execute: function(parts) {
+      // push to HTML.
+      parts.resolve();
+    }
+  }
+
+  fdescribe('Test Boss...', function(done) {
+    let job = Boss.create({
+      prep: [new PrepData()],
+      prepResults: function(results) {
+        return {
+          jobPath: 'jobs/TestJob',
+          jobParams: results[0]
+        }
+      },
+      postConstructor: DispatchToUI
+    });
+    job.then(done);
   });
 });
