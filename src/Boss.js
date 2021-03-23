@@ -1,3 +1,6 @@
+/*jslint node: true */
+/*global define */
+'use strict';
 define('src/Boss', [
   'src/WorkQueue',
   'src/TroubleMaker'
