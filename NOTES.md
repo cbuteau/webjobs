@@ -184,3 +184,11 @@ We should rewrite the export script...so it exports to different dirs.
 10/22/2019
 
 New idea...add a progress message to the message set.
+
+10/22/2021
+
+Holy crap the same date AFTER covid.
+This is the new idea.
+WE design and implement LongRunningJobs
+
+Also investigate a shared worker as a timeout mechanism that talks to all of the workers in the pool.
