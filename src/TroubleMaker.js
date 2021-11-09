@@ -9,6 +9,19 @@ define('src/TroubleMaker', ['src/MessageIds', 'src/WorkerStates', 'src/ThePool']
   }
 
   TroubleMaker.prototype = {
+    initialize: function(options) {
+      this.options = options;
+      if ((!this.options.fullPathToRequire) || (!this.options.baseUrl))) {
+        throw new Error(
+          'Key options missing'
+        )
+      }
+      return new Promise(function(resolve, reject) {
+        ThePool.
+        resolve()
+      });
+    },
+
     setup: function(options) {
       // setup resolver...
       this.options = options;

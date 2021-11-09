@@ -1,5 +1,7 @@
 'use strict';
-define('src/WorkQueue', [], function() {
+define('src/WorkQueue', [
+  'src/RafRepeater'
+], function(RafRepeater) {
 
   function PromiseParts() {
     var that = this;
@@ -12,8 +14,11 @@ define('src/WorkQueue', [], function() {
 
   function WorkQueue() {
     this.work = [];
-    this._boundRaf = this._raf.bind(this);
-    this._start();
+    this._raf = new RafRepeater({
+      think: this._raf.bind();
+    })
+    //this._boundRaf = this._raf.bind(this);
+    //this._start();
   }
 
   WorkQueue.prototype = {
@@ -40,10 +45,12 @@ define('src/WorkQueue', [], function() {
         return;
       }
 
-      this._start();
+      return true;
+      //this._start();
     },
     _start: function() {
-      requestAnimationFrame(this._boundRaf);
+      this._raf.start();
+      //requestAnimationFrame(this._boundRaf);
     }
   };
 
