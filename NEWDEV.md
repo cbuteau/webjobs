@@ -11,10 +11,12 @@ This will invlove creating new classes to build upon.
 ## Names of things
 
 A thing running on a thread is a job.
-A think running on the RAF is a task.
+A thing running on the RAF is a task.
 
-A thing runnig the jobs is a Deputy...
+A thing that is a long running job is a career
 
+
+A thing running the jobs is a Deputy...
 
 you have to use tasks to gather the information to cast into jobs.
 if you have to reflect this back in the ui you need another task.
