@@ -27,7 +27,7 @@
     "extend": "3.0.2",
     "jasmine": "3.4.0",
     "jasmine-core": "2.2.0",
-    "karma": "4.1.0",
+    "karma": "6.4.1",
     "karma-chrome-launcher": "2.2.0",
     "karma-coverage": "1.1.2",
     "karma-coveralls": "2.1.0",
