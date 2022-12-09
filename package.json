@@ -23,7 +23,7 @@
   "devDependencies": {
     "escodegen": "1.11.1",
     "esprima": "4.0.1",
-    "express": "4.16.4",
+    "express": "4.17.3",
     "extend": "3.0.2",
     "jasmine": "3.4.0",
     "jasmine-core": "2.2.0",
